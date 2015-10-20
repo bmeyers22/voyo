@@ -1,0 +1,7 @@
+{
+  "name": "voyo",
+  "app_id": "",
+  "gulpStartupTasks": [
+    "build"
+  ]
+}
