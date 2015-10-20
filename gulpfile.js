@@ -1,70 +1,113 @@
-var gulp = require('gulp');
-var gutil = require('gulp-util');
-var bower = require('bower');
-var mainBowerFiles = require('gulp-main-bower-files');
-var concat = require('gulp-concat');
-var coffee = require('gulp-coffee');
-var sourcemaps = require('gulp-sourcemaps');
-var sass = require('gulp-sass');
-var minifyCss = require('gulp-minify-css');
-var rename = require('gulp-rename');
-var sh = require('shelljs');
+var gulp = require('gulp'),
+  gutil = require('gulp-util'),
+  bower = require('bower'),
+  debug = require('gulp-debug'),
+  bowerFiles = require('main-bower-files'),
+  concat = require('gulp-concat'),
+  babel = require('gulp-babel'),
+  sourcemaps = require('gulp-sourcemaps'),
+  sass = require('gulp-sass'),
+  minifyCss = require('gulp-minify-css'),
+  rename = require('gulp-rename'),
+  templateCache = require('gulp-angular-templatecache'),
+  queue = require('streamqueue'),
+  sh = require('shelljs');
 
 var paths = {
-  sass: ['./www/styles/**/*.scss'],
-  coffee: ['./www/js/app/**/*.coffee'],
-  html: ['./www/templates/**/*.html']
+  sass: ['styles/**/*.scss'],
+  js: ['app/**/*.js'],
+  html: ['app/**/*.html']
 };
 
-gulp.task('default', []);
-gulp.task('build', [ 'clean-dist', 'sass', 'vendor-javascript', 'javascript']);
+function fileTypeFilter (files, extension) {
+  var regExp = new RegExp('\\.' + extension + '$');
+  return files.filter(regExp.test.bind(regExp));
+};
+
+
+gulp.task('default', ['build']);
+gulp.task('build', [ 'clean-dist', 'sass', 'vendor-javascript', 'javascript', 'templates', 'fonts']);
 
 gulp.task('clean-dist', function() {
-  return sh.rm('-r', './www/dist');
+  return sh.rm('-r', 'www/dist');
 });
 
 gulp.task('sass', function() {
-  gulp.src('./scss/ionic.app.scss')
+  gulp.src('vendor/scss/ionic.app.scss')
     .pipe(sass({
       errLogToConsole: true
     }))
-    .pipe(gulp.dest('./www/dist/'))
+    .pipe(gulp.dest('www/dist/'))
     .pipe(minifyCss({
       keepSpecialComments: 0
     }))
     .pipe(rename({ extname: '.min.css' }))
-    .pipe(gulp.dest('./www/dist/'))
+    .pipe(gulp.dest('www/dist/'))
 
-  gulp.src('./www/styles/app.scss')
+  gulp.src('styles/app.scss')
     .pipe(sass({
       errLogToConsole: true
     }))
     .pipe(concat('voyo.css'))
-    .pipe(gulp.dest('./www/dist/'));
+    .pipe(gulp.dest('www/dist/'));
 
-});
-
-gulp.task('javascript', function(done) {
-  return gulp.src('./www/js/app/**/*.coffee')
-    .pipe(coffee({bare: true}).on('error', gutil.log))
-    .pipe(sourcemaps.init())
-    .pipe(concat('voyo.js'))
-    .pipe(sourcemaps.write())
-    .pipe(gulp.dest('./www/dist'));
 });
 
 gulp.task('vendor-javascript', function() {
-  return gulp.src('./bower.json')
-    .pipe(mainBowerFiles({ debugging: true }))
-    .pipe(concat('vendor.js'))
+  var files = bowerFiles({paths: './', debugging: true}),
+    vendorJs = fileTypeFilter(files, 'js'),
+    q = new queue({objectMode: true});
+    q.queue(gulp.src(vendorJs)
+      .pipe(sourcemaps.init({loadMaps: true}))
+      .pipe(concat('vendor.js'))
+      .pipe(sourcemaps.write())
+      .pipe(gulp.dest('./www/dist'))
+    );
+    return q.done();
+});
+
+
+gulp.task('javascript', function(done) {
+  return gulp.src([
+      'app/app.js',
+      'app/router.js',
+      'app/controllers.js',
+      'app/services.js',
+      'app/templates.js',
+      'app/**/*.js'
+    ])
+    .pipe(babel())
+    .pipe(sourcemaps.init())
+    .pipe(concat('voyo.js'))
     .pipe(sourcemaps.write())
-    .pipe(gulp.dest('./www/dist'));
+    .pipe(gulp.dest('www/dist'));
+});
+
+// gulp.task('templates', function () {
+//   return gulp.src('app/**/*.html')
+//     .pipe(debug({title: 'templates'}))
+//     .pipe(htmlmin({ collapseWhitespace: true }))
+//     .pipe(ngHtml2Js({ moduleName: 'templates' }))
+//     .pipe(concat('templates.js'))
+//     .pipe(ngAnnotate())
+//     .pipe(gulp.dest('./www/dist/'));
+// });
+gulp.task('templates', function () {
+  return gulp.src('app/**/*.html')
+    .pipe(templateCache())
+    .pipe(gulp.dest('www/dist'));
+});
+
+gulp.task('fonts', function () {
+  return gulp.src([
+    './bower_components/ionic/fonts/**/*.{ttf,woff,eot,svg}',
+  ])
+  .pipe(debug({title: 'fonts'}))
+  .pipe(gulp.dest('./www/assets/fonts'));
 });
 
 gulp.task('watch', function() {
-  gulp.watch(paths.sass, ['sass']);
-  gulp.watch(paths.coffee, ['javascript']);
-  gulp.watch(paths.html);
+  gulp.watch('app/**/*', ['build']);
 });
 
 gulp.task('install', ['git-check'], function() {
