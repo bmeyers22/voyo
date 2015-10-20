@@ -1,4 +1,4 @@
-angular.module('Voyo').factory( 'Auth', function (FIREBASE_URL, $firebaseAuth, $firebaseArray, $firebaseObject, $state, UserService) {
+angular.module('Voyo.services').factory( 'Auth', function (FIREBASE_URL, $firebaseAuth, $firebaseArray, $firebaseObject, $state, UserService) {
   let ref = new Firebase(FIREBASE_URL)
 
   return {
