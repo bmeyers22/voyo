@@ -1,38 +1,38 @@
-<ion-scroll direction="x" style="width: 1000px;">
+<ion-scroll direction="x" style="width: 500px;">
   <div class="button-bar thumbs">
     <a class="button" ng-click="applyFilter('reset')" >
-      <div class="image-holder">
-        <img class="image-element reset" data-filter="reset" width="64" height="64" ng-src="{{photoUrl}}"/>
+      <div class="image-holder" data-filter="reset">
+        <img class="image-element reset" width="64" height="64" ng-src="{{photoUrl}}"/>
       </div>
       <div>Reset Photo</div>
     </a>
     <a class="button" ng-click="applyFilter('brightness')" >
-      <div class="image-holder">
-        <img class="image-element brightness" data-filter="brightness" width="64" height="64" ng-src="{{photoUrl}}"/>
+      <div class="image-holder" data-filter="brightness">
+        <img class="image-element brightness" width="64" height="64" ng-src="{{photoUrl}}"/>
       </div>
       <div>Brightness</div>
     </a>
     <a class="button" ng-click="applyFilter('noise')" >
-      <div class="image-holder">
-        <img class="image-element noise" data-filter="noise" width="64" height="64" ng-src="{{photoUrl}}"/>
+      <div class="image-holder" data-filter="noise">
+        <img class="image-element noise" width="64" height="64" ng-src="{{photoUrl}}"/>
       </div>
       <div>Noise</div>
     </a>
     <a class="button" ng-click="applyFilter('sepia')" >
-      <div class="image-holder">
-        <img class="image-element sepia" data-filter="sepia" width="64" height="64" ng-src="{{photoUrl}}"/>
+      <div class="image-holder" data-filter="sepia">
+        <img class="image-element sepia" width="64" height="64" ng-src="{{photoUrl}}"/>
       </div>
       <div>Sepia</div>
     </a>
     <a class="button" ng-click="applyFilter('contrast')" >
-      <div class="image-holder">
-        <img class="image-element contrast" data-filter="contrast" width="64" height="64" ng-src="{{photoUrl}}"/>
+      <div class="image-holder" data-filter="contrast">
+        <img class="image-element contrast" width="64" height="64" ng-src="{{photoUrl}}"/>
       </div>
       <div>Contrast</div>
     </a>
     <a class="button" ng-click="applyFilter('color')" >
-      <div class="image-holder">
-        <img class="image-element color" data-filter="color" width="64" height="64" ng-src="{{photoUrl}}"/>
+      <div class="image-holder" data-filter="color">
+        <img class="image-element color" width="64" height="64" ng-src="{{photoUrl}}"/>
       </div>
       <div>Color</div>
     </a>
@@ -41,4 +41,3 @@
 <div class="image-holder main">
   <img class="image-element main" width="320" height="320" data-camanheight="320" data-camanwidth="320" ng-src="{{photoUrl}}"/>
 </div>
-<div ng-click="changeImage()">RESET</div>

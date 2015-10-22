@@ -93,7 +93,7 @@ angular.module('Voyo').directive('mediaCreator', function($compile, $q) {
 
       scope.resetThumbs = function () {
         element.find('.thumbs .image-holder').each(function () {
-          let filter = $(this).find('.image-element').data('filter');
+          let filter = $(this).data('filter');
           let img = new Image();
           img.height = 64;
           img.width = 64;
@@ -107,16 +107,13 @@ angular.module('Voyo').directive('mediaCreator', function($compile, $q) {
 
       scope.resetImages = function () {
         scope.resetMain();
-        // scope.resetThumbs();
+        scope.resetThumbs();
       }
 
       scope.$watch('photoUrl', function (val, old) {
         scope.resetImages();
       });
 
-      scope.changeImage = function () {
-        scope.photoUrl = 'assets/img/image1.jpg'
-      }
     },
     templateUrl: 'components/media-creator/template.html'
   };
