@@ -1,15 +1,8 @@
-angular.module('Voyo.services').factory('Camera', ['$q', function ($q) {
+angular.module('Voyo.services').service('Camera', function ($cordovaCamera) {
   return {
     getPicture: function (options) {
-      let q = $q.defer();
 
-      navigator.camera.getPicture( function (result) {
-        q.resolve(result);
-      }, function (err) {
-        q.reject(err);
-      }, options );
-
-      return q.promise;
+      return $cordovaCamera.getPicture(options);
     }
   }
-}]);
+});

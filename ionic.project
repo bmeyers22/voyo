@@ -1,6 +1,6 @@
 {
   "name": "voyo",
-  "app_id": "",
+  "app_id": "f9a59b5b",
   "gulpStartupTasks": [
     "build",
     "watch"

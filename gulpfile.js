@@ -108,6 +108,7 @@ gulp.task('fonts', function () {
 
 gulp.task('watch', function() {
   gulp.watch('app/**/*', ['build']);
+  gulp.watch(paths.sass, ['sass']);
 });
 
 gulp.task('install', ['git-check'], function() {

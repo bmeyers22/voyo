@@ -48,4 +48,6 @@
         <splash height="480" src="resources/ios/splash/Default~iphone.png" width="320" />
     </platform>
     <plugin name="cordova-plugin-camera" spec="~1.2.0" />
+    <plugin name="cordova-plugin-file" spec="~3.0.0" />
+    <plugin name="cordova-plugin-geolocation" spec="~1.0.1" />
 </widget>
