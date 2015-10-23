@@ -1,4 +1,4 @@
-angular.module('Voyo').directive('mediaCreator', function($compile, $q) {
+angular.module('Voyo').directive('mediaCreator', function($compile, $q, $window, S3Upload) {
   return {
     scope: {
       photoUrl: '='
@@ -10,6 +10,7 @@ angular.module('Voyo').directive('mediaCreator', function($compile, $q) {
         width: 320,
         height: 320
       }
+
 
       $scope.applyFilter = function (filter) {
         if (filter === $scope.currentFilter) {
@@ -109,6 +110,23 @@ angular.module('Voyo').directive('mediaCreator', function($compile, $q) {
         scope.resetMain();
         scope.resetThumbs();
       }
+
+      scope.saveImage = function () {
+        let canvas = element.find('.image-element.main')[0];
+        if ($window.canvas2ImagePlugin) {
+          $window.canvas2ImagePlugin.saveImageDataToLibrary(
+            function(msg){
+                console.log(msg);
+            },
+            function(err){
+                console.log(err);
+            },
+            canvas
+          );
+        }
+        console.log(S3Upload.uploadCanvas(canvas));
+      }
+
 
       scope.$watch('photoUrl', function (val, old) {
         scope.resetImages();

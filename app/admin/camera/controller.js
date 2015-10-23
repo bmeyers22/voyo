@@ -4,7 +4,8 @@ angular.module('Voyo.controllers').controller('AdminCameraController', function 
       quality: 75,
       targetWidth: 320,
       targetHeight: 320,
-      allowEdit : true
+      allowEdit : true,
+      saveToPhotoAlbum: true
     }).then( (imageURI) => {
       $scope.photoUrl = imageURI;
     }, (err) => {
