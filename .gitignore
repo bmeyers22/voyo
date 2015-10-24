@@ -11,3 +11,4 @@ temp/
 *.log
 *.swp
 www/dist/
+www/index.html

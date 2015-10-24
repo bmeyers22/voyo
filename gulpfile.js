@@ -6,6 +6,7 @@ var gulp = require('gulp'),
   concat = require('gulp-concat'),
   babel = require('gulp-babel'),
   sourcemaps = require('gulp-sourcemaps'),
+  htmlmin = require('gulp-htmlmin'),
   sass = require('gulp-sass'),
   autoprefixer = require('gulp-autoprefixer'),
   minifyCss = require('gulp-minify-css'),
@@ -15,9 +16,10 @@ var gulp = require('gulp'),
   sh = require('shelljs');
 
 var paths = {
-  sass: ['styles/**/*.scss'],
+  sass: ['app/styles/**/*.scss'],
   js: ['app/**/*.js'],
-  html: ['app/**/*.html']
+  html: ['app/**/*.html'],
+  index: ['app/index.html']
 };
 
 function fileTypeFilter (files, extension) {
@@ -27,10 +29,16 @@ function fileTypeFilter (files, extension) {
 
 
 gulp.task('default', ['build']);
-gulp.task('build', [ 'clean-dist', 'sass', 'vendor-javascript', 'javascript', 'templates', 'fonts']);
+gulp.task('build', [ 'clean-dist', 'index', 'sass', 'vendor-javascript', 'javascript', 'templates', 'fonts']);
 
 gulp.task('clean-dist', function() {
   return sh.rm('-r', 'www/dist');
+});
+
+gulp.task('index', function() {
+  return gulp.src('app/index.html')
+    .pipe(htmlmin({collapseWhitespace: true}))
+    .pipe(gulp.dest('www'))
 });
 
 gulp.task('sass', function() {
@@ -45,7 +53,7 @@ gulp.task('sass', function() {
     .pipe(rename({ extname: '.min.css' }))
     .pipe(gulp.dest('www/dist/'))
 
-  gulp.src('styles/app.scss')
+  gulp.src('app/styles/app.scss')
     .pipe(autoprefixer({
       browsers: ['last 2 versions'],
       cascade: false
