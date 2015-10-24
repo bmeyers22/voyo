@@ -5,49 +5,42 @@ angular.module('Voyo.services').service( 'Auth', function (FIREBASE_URL, $fireba
     auth: $firebaseAuth(ref),
     user: null,
 
-    createSocialProfile: function (uid, user) {
-      let usersRef = new Firebase(`https://voyo.firebaseio.com/users/${uid}`),
-        fbRef = new Firebase(`https://voyo.firebaseio.com/facebookUsers/${uid}`),
-        profile = {
-          id: uid,
-          facebookUserId: user.facebook.id,
-          email: user.facebook.email,
-          firstName: user.facebook.cachedUserProfile.first_name,
-          lastName: user.facebook.cachedUserProfile.last_name,
-          registeredAt: new Date(),
-          profileImageUrl: user.facebook.profileImageURL
-        },
-        facebookProfile = user.facebook;
-
-      return usersRef.set(profile, function (ref) {
-        fbRef.set(facebookProfile);
-      });
-    },
-
-
-    login: function(user) {
+    login(user) {
       return this.auth.$authWithPassword({
         email: user.email,
         password: user.password
       });
     },
-
-    socialLogin: function(provider) {
-      return this.auth.$authWithOAuthPopup(provider, {
+    socialCallback(authData) {
+      let fbQueryRef = new Firebase("https://voyo.firebaseio.com/facebookUsers");
+      return fbQueryRef.orderByChild("id").equalTo(authData.facebook.id).once('value', (snapshot) => {
+        if (snapshot.numChildren() === 0) {
+          return UserService.createFromFacebook(authData.uid, authData);
+        } else {
+          return true;
+        }
+      });
+    },
+    socialLogin(provider) {
+      return this.auth.$authWithOAuthRedirect(provider, {
         scope: 'user_birthday, user_location, user_about_me, email, public_profile'
       }).then( (authData) => {
-        let fbQueryRef = new Firebase("https://voyo.firebaseio.com/facebookUsers");
-        return fbQueryRef.orderByChild("id").equalTo(authData.facebook.id).once('value', (snapshot) => {
-          if (snapshot.numChildren() === 0) {
-            this.createSocialProfile(authData.uid, authData);
-          } else {
-            $state.go('app.dash');
-          }
-        });
+        return this.socialCallback(authData);
+      })
+      .catch( (error) => {
+        if (error.code === 'TRANSPORT_UNAVAILABLE') {
+          return this.auth.$authWithOAuthPopup(provider, {
+            scope: 'user_birthday, user_location, user_about_me, email, public_profile'
+          }).then( (authData) => {
+            return this.socialCallback(authData);
+          });
+        } else {
+          console.log(error);
+        }
       });
     },
 
-    register: function (user) {
+    register(user) {
       return this.auth.$createUser({
         email: user.email,
         password: user.password
@@ -57,17 +50,17 @@ angular.module('Voyo.services').service( 'Auth', function (FIREBASE_URL, $fireba
       }).then( (data) => {
         //  store user data in Firebase after creating account
         // console.log('datos del usuario:' + JSON.stringify(data))
-        return UserService.createProfile(data.uid, user);
+        return UserService.create(data.uid, user);
       }).catch( (error) => {
         console.log(error);
       });
     },
 
-    logout: function() {
+    logout() {
       return this.auth.$unauth()
     },
 
-    resetpassword: function(user) {
+    resetpassword(user) {
       return this.auth.$resetPassword({
         email: user.email
       }).then( function() {
@@ -77,7 +70,7 @@ angular.module('Voyo.services').service( 'Auth', function (FIREBASE_URL, $fireba
       });
     },
 
-    changePassword: function(user) {
+    changePassword(user) {
       return this.auth.$changePassword({
         email: user.email,
         oldPassword: user.oldPass,
@@ -85,7 +78,7 @@ angular.module('Voyo.services').service( 'Auth', function (FIREBASE_URL, $fireba
       });
     },
 
-    signedIn: function () {
+    signedIn() {
       return !!this.user;
     }
   }

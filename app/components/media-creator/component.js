@@ -1,4 +1,4 @@
-angular.module('Voyo').directive('mediaCreator', function($compile, $q, $window, S3Upload) {
+angular.module('Voyo').directive('mediaCreator', function($compile, $q, $window, Camera, S3Upload) {
   return {
     scope: {
       photoUrl: '='
@@ -7,9 +7,28 @@ angular.module('Voyo').directive('mediaCreator', function($compile, $q, $window,
       $scope.currentFilter = null;
 
       $scope.size = {
-        width: 320,
-        height: 320
+        width: $window.innerWidth,
+        height: $window.innerWidth
       }
+      $scope.thumbSize = {
+        width: 64,
+        height: 64
+      }
+
+      $scope.getPhoto = function () {
+        Camera.getPicture({
+          quality: 75,
+          targetWidth: $window.innerWidth,
+          targetHeight: $window.innerWidth,
+          allowEdit : true,
+          saveToPhotoAlbum: true
+        }).then( (imageURI) => {
+          $scope.photoUrl = imageURI;
+        }, (err) => {
+          console.error(err)
+        })
+      }
+      $scope.photoUrl = 'assets/img/login-bg.jpg';
 
 
       $scope.applyFilter = function (filter) {
@@ -21,17 +40,23 @@ angular.module('Voyo').directive('mediaCreator', function($compile, $q, $window,
       }
 
       $scope.filters = {
-        reset: function(selector) {
+        reset: function(selector, size) {
           let string = selector || '.image-element.main';
           Caman(string, function(){
             this.revert(false);
+            if (size) {
+              this.resize(size);
+            }
             this.render();
           });
         },
-        brightness: function(selector) {
+        brightness: function(selector, size) {
           let string = selector || '.image-element.main';
           Caman(string, function(){
             this.revert(false);
+            if (size) {
+              this.resize(size);
+            }
             this.brightness(10);
             this.contrast(0);
             this.render(function(){
@@ -39,37 +64,47 @@ angular.module('Voyo').directive('mediaCreator', function($compile, $q, $window,
             });
           });
         },
-        noise: function(selector) {
+        noise: function(selector, size) {
           let string = selector || '.image-element.main';
           Caman(string, function(){
             this.revert(false);
+            if (size) {
+              this.resize(size);
+            }
             this.noise(10);
             this.render();
           });
         },
-        contrast: function(selector) {
+        contrast: function(selector, size) {
           let string = selector || '.image-element.main';
           Caman(string, function(){
             this.revert(false);
+            if (size) {
+              this.resize(size);
+            }
             this.contrast(10);
             this.render();
           });
         },
-        sepia: function(selector) {
+        sepia: function(selector, size) {
           let string = selector || '.image-element.main';
           Caman(string, function(){
             this.revert(false);
+            if (size) {
+              this.resize(size);
+            }
             this.sepia(20);
             this.render();
           });
         },
-        color: function(selector) {
+        color: function(selector, size) {
           let string = selector || '.image-element.main';
           Caman(string, function(){
             this.revert(false);
+            if (size) {
+              this.resize(size);
+            }
             this.colorize("#3c69da", 10);
-            // alternative syntax
-            // this.colorize(60, 105, 218, 10);
             this.render();
           });
         }
@@ -81,13 +116,13 @@ angular.module('Voyo').directive('mediaCreator', function($compile, $q, $window,
       scope.resetMain = function () {
         let holder = element.find('.image-holder.main'),
           img = new Image();
-        img.height = scope.size.height;
-        img.width = scope.size.width;
+        $(img).css(scope.size);
         img.src = scope.photoUrl;
         img.className = 'image-element main';
         holder.children().remove()
         holder.append(img);
         Caman('.image-element.main', function () {
+          this.resize(scope.size);
           this.render();
         });
       }
@@ -96,13 +131,12 @@ angular.module('Voyo').directive('mediaCreator', function($compile, $q, $window,
         element.find('.thumbs .image-holder').each(function () {
           let filter = $(this).data('filter');
           let img = new Image();
-          img.height = 64;
-          img.width = 64;
+          $(img).css(scope.thumbSize);
           img.src = scope.photoUrl;
           img.className = `image-element ${filter}`;
           $(this).children().remove()
           $(this).append(img);
-          scope.filters[filter](`.image-element.${filter}`);
+          scope.filters[filter](`.image-element.${filter}`, scope.thumbSize);
         })
       }
 

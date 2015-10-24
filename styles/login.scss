@@ -1,6 +1,7 @@
 .login-wrapper {
   .scroll-content {
-    @include flex-column();
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     .login-content {
       .logo {

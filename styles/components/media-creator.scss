@@ -1,0 +1,27 @@
+.media-creator {
+  display: flex;
+  flex-direction: column;
+  color: #fff;
+  text-align: center;
+  .header-bar {
+    display: flex;
+    justify-content: flex-end;
+    .buttons.next {
+      align-self: flex-end;
+    }
+  }
+  .bar-footer {
+    height: auto;
+    .thumbs {
+      overflow: scroll;
+      white-space: nowrap;
+      .scroll {
+        .thumb {
+          display: inline-block;
+          width: 100px;
+          text-align: center;
+        }
+      }
+    }
+  }
+}

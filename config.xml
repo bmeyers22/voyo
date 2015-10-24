@@ -51,4 +51,5 @@
     <plugin name="cordova-plugin-file" spec="~3.0.0" />
     <plugin name="cordova-plugin-geolocation" spec="~1.0.1" />
     <plugin name="org.devgeeks.Canvas2ImagePlugin" spec="https://github.com/devgeeks/Canvas2ImagePlugin.git" />
+    <plugin name="cordova-plugin-inappbrowser" spec="~1.0.1" />
 </widget>

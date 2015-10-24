@@ -1,46 +1,48 @@
-<ion-scroll direction="x" style="width: 500px;">
-  <div class="button-bar thumbs">
-    <a class="button" ng-click="applyFilter('reset')" >
+<ion-header-bar align-title="left" class="bar-positive header-bar">
+  <div class="buttons next">
+    <button class="button" ng-click="saveImage()">Next</button>
+  </div>
+</ion-header-bar>
+<div class="image-holder main" ng-click="getPhoto()">
+  <img class="image-element main" width="320" height="320" data-camanheight="320" data-camanwidth="320" ng-src="{{photoUrl}}"/>
+</div>
+<div class="bar bar-footer bar-dark">
+  <ion-scroll class="thumbs" direction="x">
+    <a class="thumb" ng-click="applyFilter('reset')" >
       <div class="image-holder" data-filter="reset">
         <img class="image-element reset" width="64" height="64" ng-src="{{photoUrl}}"/>
       </div>
-      <div>Reset Photo</div>
+      <div>None</div>
     </a>
-    <a class="button" ng-click="applyFilter('brightness')" >
+    <a class="thumb" ng-click="applyFilter('brightness')" >
       <div class="image-holder" data-filter="brightness">
         <img class="image-element brightness" width="64" height="64" ng-src="{{photoUrl}}"/>
       </div>
       <div>Brightness</div>
     </a>
-    <a class="button" ng-click="applyFilter('noise')" >
+    <a class="thumb" ng-click="applyFilter('noise')" >
       <div class="image-holder" data-filter="noise">
         <img class="image-element noise" width="64" height="64" ng-src="{{photoUrl}}"/>
       </div>
       <div>Noise</div>
     </a>
-    <a class="button" ng-click="applyFilter('sepia')" >
+    <a class="thumb" ng-click="applyFilter('sepia')" >
       <div class="image-holder" data-filter="sepia">
         <img class="image-element sepia" width="64" height="64" ng-src="{{photoUrl}}"/>
       </div>
       <div>Sepia</div>
     </a>
-    <a class="button" ng-click="applyFilter('contrast')" >
+    <a class="thumb" ng-click="applyFilter('contrast')" >
       <div class="image-holder" data-filter="contrast">
         <img class="image-element contrast" width="64" height="64" ng-src="{{photoUrl}}"/>
       </div>
       <div>Contrast</div>
     </a>
-    <a class="button" ng-click="applyFilter('color')" >
+    <a class="thumb" ng-click="applyFilter('color')" >
       <div class="image-holder" data-filter="color">
         <img class="image-element color" width="64" height="64" ng-src="{{photoUrl}}"/>
       </div>
       <div>Color</div>
     </a>
-  </div>
-</ion-scroll>
-<div class="image-holder main">
-  <img class="image-element main" width="320" height="320" data-camanheight="320" data-camanwidth="320" ng-src="{{photoUrl}}"/>
+  </ion-scroll>
 </div>
-<button class="button button-block button-positive" ng-click="saveImage()">
-  Save
-</button>

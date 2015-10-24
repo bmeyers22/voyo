@@ -7,6 +7,7 @@ var gulp = require('gulp'),
   babel = require('gulp-babel'),
   sourcemaps = require('gulp-sourcemaps'),
   sass = require('gulp-sass'),
+  autoprefixer = require('gulp-autoprefixer'),
   minifyCss = require('gulp-minify-css'),
   rename = require('gulp-rename'),
   templateCache = require('gulp-angular-templatecache'),
@@ -45,6 +46,10 @@ gulp.task('sass', function() {
     .pipe(gulp.dest('www/dist/'))
 
   gulp.src('styles/app.scss')
+    .pipe(autoprefixer({
+      browsers: ['last 2 versions'],
+      cascade: false
+    }))
     .pipe(sass({
       errLogToConsole: true
     }))

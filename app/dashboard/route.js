@@ -10,7 +10,7 @@ angular.module('Voyo')
       },
       resolve: {
         currentUser: ['$state', 'Auth', 'User', 'currentAuth', function ($state, Auth, User, currentAuth) {
-          return User(currentAuth.uid).$loaded();
+          return User.find(currentAuth.uid).$loaded();
         }]
       }
     });

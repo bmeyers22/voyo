@@ -12,17 +12,26 @@ angular.module('Voyo.controllers').controller('LoginController', function ($scop
         $scope.user = {
           email: '',
           password: ''
-        }
+        };
         $state.go('app.dash');
       }).catch(errMessage)
   };
 
   $scope.socialLogin = function (provider) {
-    Auth.socialLogin(provider);
+    Auth.socialLogin(provider).then( () => {
+      $scope.user = {
+        email: '',
+        password: ''
+      };
+      $state.go('app.dash');
+    });
   };
 
   $scope.createUser = function () {
     Auth.register($scope.user)
+      .then( (user) => {
+        $state.go('app.dash');
+      })
       .catch(errMessage);
   };
 

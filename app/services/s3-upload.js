@@ -1,4 +1,4 @@
-angular.module('Voyo.services').service('S3Upload', function () {
+angular.module('Voyo.services').service('S3Upload', function ($window) {
     // upload later on form submit or something similar
     let dataURItoBlob = function (dataURI) {
       // convert base64/URLEncoded data component to raw binary data held in a string
@@ -18,18 +18,24 @@ angular.module('Voyo.services').service('S3Upload', function () {
         ia[i] = byteString.charCodeAt(i);
       }
 
-      return new Blob([ia], {type:mimeString});
+      return {
+        blob: new Blob([ia], { type:mimeString }),
+        mimeType: mimeString
+      }
     };
 
     let generateCanvasDataUrl = function (canvas) {
       return canvas.toDataURL("image/png");
     };
 
+    $window.AWS.config.update({accessKeyId: 'AKIAJI6JQSFRH72I5JLA', secretAccessKey: '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'});
 
     return {
       // upload on file select or drop
       uploadCanvas(canvas) {
-        let blob = dataURItoBlob(generateCanvasDataUrl(canvas));
+        let blobObj = dataURItoBlob(generateCanvasDataUrl(canvas)),
+          blob = blobObj.blob,
+          mimeType = blobObj.mimeType;
         //Getting the base64 encoded string, then converting into byte stream
         let bucketName = "dev.voyo",
          amazonS3Client = new AWS.S3();
@@ -38,7 +44,8 @@ angular.module('Voyo.services').service('S3Upload', function () {
           Bucket: bucketName,
           Key: 'post-images/somename.jpg',
           Body: blob,
-          ACL: 'public-read'
+          ACL: 'public-read',
+          ContentType: mimeType
         }, function (response) {
           console.log(response);
         });
