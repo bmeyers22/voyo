@@ -12,7 +12,6 @@
 
     <!-- ionic/angularjs js -->
     <script src="dist/vendor.js"></script>
-
     <!-- cordova script (this will be a 404 during development) -->
 
     <script src="cordova.js"></script>
@@ -20,8 +19,8 @@
     <!-- your app's js -->
     <script src="dist/voyo.js"></script>
     <script src="dist/templates.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA0c9y8OfcjKQQqhkGHv6mk-OrF5xD54xI&amp;sensor=true"></script>
-    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.2.11.min.js"></script>
+    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA0c9y8OfcjKQQqhkGHv6mk-OrF5xD54xI&amp;sensor=true"></script> -->
+    <script src="lib/aws-sdk.min.js"></script>
   </head>
   <body ng-app="Voyo">
     <!--
@@ -31,6 +30,11 @@
     <!-- Left menu -->
     <ion-side-menu side="left">
       <div class="list">
+        <a menu-close="" class="item item-icon-left item-icon-right" href="#/app/dash">
+          <i class="icon ion-map"></i>
+          Dashboard
+          <i class="icon ion-arrow-right-c"></i>
+        </a>
         <a menu-close="" class="item item-icon-left item-icon-right" href="#/admin/map">
           <i class="icon ion-map"></i>
           Maps

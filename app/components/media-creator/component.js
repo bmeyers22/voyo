@@ -1,7 +1,7 @@
-angular.module('Voyo').directive('mediaCreator', function($compile, $q, $window, Camera, S3Upload) {
+angular.module('Voyo').directive('mediaCreator', function($window) {
   return {
     scope: {
-      photoUrl: '='
+      mediaUrl: '='
     },
     controller: ['$scope', function($scope) {
       $scope.currentFilter = null;
@@ -14,22 +14,6 @@ angular.module('Voyo').directive('mediaCreator', function($compile, $q, $window,
         width: 64,
         height: 64
       }
-
-      $scope.getPhoto = function () {
-        Camera.getPicture({
-          quality: 75,
-          targetWidth: $window.innerWidth,
-          targetHeight: $window.innerWidth,
-          allowEdit : true,
-          saveToPhotoAlbum: true
-        }).then( (imageURI) => {
-          $scope.photoUrl = imageURI;
-        }, (err) => {
-          console.error(err)
-        })
-      }
-      $scope.photoUrl = 'assets/img/login-bg.jpg';
-
 
       $scope.applyFilter = function (filter) {
         if (filter === $scope.currentFilter) {
@@ -117,7 +101,7 @@ angular.module('Voyo').directive('mediaCreator', function($compile, $q, $window,
         let holder = element.find('.image-holder.main'),
           img = new Image();
         $(img).css(scope.size);
-        img.src = scope.photoUrl;
+        img.src = scope.mediaUrl;
         img.className = 'image-element main';
         holder.children().remove()
         holder.append(img);
@@ -132,7 +116,7 @@ angular.module('Voyo').directive('mediaCreator', function($compile, $q, $window,
           let filter = $(this).data('filter');
           let img = new Image();
           $(img).css(scope.thumbSize);
-          img.src = scope.photoUrl;
+          img.src = scope.mediaUrl;
           img.className = `image-element ${filter}`;
           $(this).children().remove()
           $(this).append(img);
@@ -145,24 +129,7 @@ angular.module('Voyo').directive('mediaCreator', function($compile, $q, $window,
         scope.resetThumbs();
       }
 
-      scope.saveImage = function () {
-        let canvas = element.find('.image-element.main')[0];
-        if ($window.canvas2ImagePlugin) {
-          $window.canvas2ImagePlugin.saveImageDataToLibrary(
-            function(msg){
-                console.log(msg);
-            },
-            function(err){
-                console.log(err);
-            },
-            canvas
-          );
-        }
-        console.log(S3Upload.uploadCanvas(canvas));
-      }
-
-
-      scope.$watch('photoUrl', function (val, old) {
+      scope.$watch('mediaUrl', function (val, old) {
         scope.resetImages();
       });
 

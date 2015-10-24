@@ -11,6 +11,9 @@ angular.module('Voyo')
       resolve: {
         currentUser: ['$state', 'Auth', 'User', 'currentAuth', function ($state, Auth, User, currentAuth) {
           return User.find(currentAuth.uid).$loaded();
+        }],
+        stories: ['$state', 'Story', function ($state, Story) {
+          return Story.get();
         }]
       }
     });

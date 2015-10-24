@@ -32,23 +32,27 @@ angular.module('Voyo.services').service('S3Upload', function ($window) {
 
     return {
       // upload on file select or drop
-      uploadCanvas(canvas) {
-        let blobObj = dataURItoBlob(generateCanvasDataUrl(canvas)),
-          blob = blobObj.blob,
-          mimeType = blobObj.mimeType;
-        //Getting the base64 encoded string, then converting into byte stream
-        let bucketName = "dev.voyo",
-         amazonS3Client = new AWS.S3();
+      uploadCanvas(canvas, postId) {
+        return new Promise( (resolve, reject) => {
+          let blobObj = dataURItoBlob(generateCanvasDataUrl(canvas)),
+            blob = blobObj.blob,
+            mimeType = blobObj.mimeType;
+          //Getting the base64 encoded string, then converting into byte stream
+          let bucketName = "dev.voyo",
+           amazonS3Client = new AWS.S3(),
+           path = `post-media/${postId}/somename.png`,
+           fullPath = `https://s3.amazonaws.com/${bucketName}/${path}`;
 
-        amazonS3Client.putObject({
-          Bucket: bucketName,
-          Key: 'post-images/somename.jpg',
-          Body: blob,
-          ACL: 'public-read',
-          ContentType: mimeType
-        }, function (response) {
-          console.log(response);
-        });
+          amazonS3Client.putObject({
+            Bucket: bucketName,
+            Key: path,
+            Body: blob,
+            ACL: 'public-read',
+            ContentType: mimeType
+          }, function (response) {
+            resolve(fullPath);
+          });
+        })
       }
     }
 });

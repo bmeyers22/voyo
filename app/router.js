@@ -39,6 +39,7 @@ angular.module('Voyo').run(['$rootScope', '$state', 'Auth', function ($rootScope
 
   $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
     console.log('rejected');
+    debugger
     // # We can catch the error thrown when the $requireAuth promise is rejected
     // # and redirect the user back to the home page
     if (error === 'AUTH_REQUIRED') {

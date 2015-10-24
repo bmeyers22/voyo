@@ -1,15 +1,32 @@
 angular.module('Voyo').factory("Story", ["$firebaseObject", 'FIREBASE_URL', 'BaseModel', 'Timestampable',
   function($firebaseObject, FIREBASE_URL, BaseModel, Timestampable) {
     // create a new service based on $firebaseObject
-    let Story = BaseModel('stories', {}, Timestampable);
+    let defaultProperties = {
+      title: '',
+      caption: '',
+      media: ''
+    };
+    let Story = BaseModel('stories', defaultProperties, Timestampable);
     Story.create = function(properties) {
-      var arr = new Firebase(`${FIREBASE_URL}stories`);
-      key = arr.push(properties).key();
+      var arr = new Firebase(`${FIREBASE_URL}stories/`),
+        ref = arr.push(defaultProperties);
 
-      var ref = new Firebase(`${FIREBASE_URL}stories/`).child(key);
-
-      return new Story(ref);
+      return new Story(ref.key());
     }
+    Story.get = function() {
+      return new Promise((resolve, reject) => {
+        var ref = new Firebase(`${FIREBASE_URL}stories/`);
+        ref.orderByChild("createdAt").once("value", function(snapshot) {
+          resolve(
+            Object.keys(snapshot.val()).map(function(key) {
+              return new Story(key);
+            })
+          );
+        });
+
+      })
+    }
+
     return Story;
   }
 ]);
