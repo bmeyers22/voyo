@@ -120,8 +120,10 @@ gulp.task('fonts', function () {
 });
 
 gulp.task('watch', function() {
-  gulp.watch('app/**/*', ['build']);
   gulp.watch(paths.sass, ['sass']);
+  gulp.watch(paths.js, ['javascript']);
+  gulp.watch(paths.html, ['templates']);
+  gulp.watch(paths.index, ['index']);
 });
 
 gulp.task('install', ['git-check'], function() {
