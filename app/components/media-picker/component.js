@@ -1,9 +1,10 @@
-angular.module('Voyo').directive('mediaPicker', function($compile, $q, $window, Camera, S3Upload) {
+angular.module('Voyo').directive('mediaPicker', function($compile, $q, $window, MediaCaptureService, S3Upload) {
   return {
     scope: true,
     controller: ['$scope', function($scope) {
 
       let updateMediaUrl = function (url) {
+        debugger
         $scope.$emit('PickedMediaFile', url);
       }
 
@@ -11,16 +12,26 @@ angular.module('Voyo').directive('mediaPicker', function($compile, $q, $window, 
         $scope.$emit('PickedMediaFile', 'assets/img/login-bg.jpg');
       }
 
-      $scope.getMedia = function (type) {
-        Camera.getPicture({
-          quality: 75,
-          targetWidth: $window.innerWidth,
-          targetHeight: $window.innerWidth,
-          allowEdit : true,
-          saveToPhotoAlbum: true
-        }).then( updateMediaUrl, (err) => {
-          console.error(err)
-        })
+      $scope.selectMedia = function() {
+        return MediaCaptureService.selectMedia()
+          .then( updateMediaUrl, (err) => {
+            debugger
+            console.error(err)
+          });
+      }
+
+      $scope.takePhoto = function () {
+        return MediaCaptureService.takePhoto()
+          .then( updateMediaUrl, (err) => {
+            console.error(err)
+          })
+      }
+
+      $scope.takeVideo = function () {
+        return MediaCaptureService.takeVideo()
+          .then( updateMediaUrl, (err) => {
+            console.error(err)
+          });
       }
     }],
     link: function(scope, element, attrs, controllers) {

@@ -17,7 +17,7 @@ VOYO.run( function ($ionicPlatform, $rootScope, Auth) {
 
     if (window.StatusBar) {
       // org.apache.cordova.statusbar required
-      StatusBar.styleDarkContent();
+      StatusBar.styleLightContent();
     }
 
   });

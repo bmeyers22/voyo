@@ -1,5 +1,4 @@
-angular.module('Voyo.controllers').controller('ProfileController', function ($scope, Auth, Camera, currentAuth) {
-  console.log(currentAuth);
+angular.module('Voyo.controllers').controller('ProfileController', function ($scope, Auth) {
   $scope.logout = function () {
     Auth.logout();
   }

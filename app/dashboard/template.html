@@ -1,5 +1,7 @@
 <ion-view view-title="Dashboard" >
   <ion-content>
+    <ion-refresher pulling-text="Pull to refresh" on-refresh="doRefresh()">
+    </ion-refresher>
     <div ng-repeat="story in stories | orderBy:'-createdAt'">
       <story-card class="story-card" story="story"></story-card>
     </div>
