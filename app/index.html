@@ -14,13 +14,13 @@
     <script src="dist/vendor.js"></script>
     <!-- cordova script (this will be a 404 during development) -->
 
-    <script src="cordova.js"></script>
 
     <!-- your app's js -->
     <script src="dist/voyo.js"></script>
     <script src="dist/templates.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA0c9y8OfcjKQQqhkGHv6mk-OrF5xD54xI&libraries=places"></script>
     <script src="lib/aws-sdk.min.js"></script>
+    <script src="cordova.js"></script>
   </head>
   <body ng-app="Voyo">
     <!--
@@ -29,22 +29,24 @@
     <ion-side-menus>
     <!-- Left menu -->
     <ion-side-menu side="left">
-      <div class="list">
-        <a menu-close="" class="item item-icon-left item-icon-right" href="#/app/dash">
-          <i class="icon ion-map"></i>
-          Dashboard
-          <i class="icon ion-arrow-right-c"></i>
-        </a>
-        <a menu-close="" class="item item-icon-left item-icon-right" href="#/admin/map">
-          <i class="icon ion-map"></i>
-          Maps
-          <i class="icon ion-arrow-right-c"></i>
-        </a>
-        <a menu-close="" class="item item-icon-left item-icon-right" href="#/admin/camera">
-          <i class="icon ion-camera"></i>
-          Camera
-          <i class="icon ion-arrow-right-c"></i>
-        </a>
+      <ion-content>
+        <div class="list">
+          <a menu-close="" class="item item-icon-left item-icon-right" href="#/app/dash">
+            <i class="icon ion-map"></i>
+            Dashboard
+            <i class="icon ion-arrow-right-c"></i>
+          </a>
+          <a menu-close="" class="item item-icon-left item-icon-right" href="#/admin/map">
+            <i class="icon ion-map"></i>
+            Maps
+            <i class="icon ion-arrow-right-c"></i>
+          </a>
+          <a menu-close="" class="item item-icon-left item-icon-right" href="#/admin/camera">
+            <i class="icon ion-camera"></i>
+            Camera
+            <i class="icon ion-arrow-right-c"></i>
+          </a>
+        </ion-content>
       </div>
     </ion-side-menu>
 

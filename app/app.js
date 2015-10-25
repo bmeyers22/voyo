@@ -8,17 +8,15 @@
 window.VOYO = angular.module('Voyo', ['ionic', 'ion-affix', 'ngCordova', 'firebase', 'Voyo.controllers', 'Voyo.services', 'templates'])
 
 VOYO.constant('FIREBASE_URL', 'https://voyo.firebaseio.com/');
-VOYO.run( function ($ionicPlatform, $rootScope, Auth) {
+VOYO.run( function ($ionicPlatform, $cordovaStatusbar, $rootScope, Auth) {
   $ionicPlatform.ready( function () {
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true)
       cordova.plugins.Keyboard.disableScroll(true)
     }
 
-    if (window.StatusBar) {
-      // org.apache.cordova.statusbar required
-      StatusBar.styleLightContent();
-    }
+    $cordovaStatusbar.overlaysWebView(true)
+    $cordovaStatusbar.style(3);
 
   });
 });
