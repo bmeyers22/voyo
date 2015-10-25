@@ -12,7 +12,7 @@ angular.module('Voyo.controllers').controller('StoryNewFiltersController', funct
         canvas
       );
     }
-    S3Upload.uploadCanvas(canvas).then( (url) => {
+    S3Upload.uploadCanvas(canvas, story.$id).then( (url) => {
       story.media = url;
       story.save().then( (story) => {
         $state.go('app.story.new.details');

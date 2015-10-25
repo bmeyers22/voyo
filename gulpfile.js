@@ -1,3 +1,5 @@
+require('dotenv').load();
+
 var gulp = require('gulp'),
   gutil = require('gulp-util'),
   bower = require('bower'),
@@ -5,6 +7,7 @@ var gulp = require('gulp'),
   bowerFiles = require('main-bower-files'),
   concat = require('gulp-concat'),
   babel = require('gulp-babel'),
+  replace = require('gulp-replace'),
   sourcemaps = require('gulp-sourcemaps'),
   htmlmin = require('gulp-htmlmin'),
   sass = require('gulp-sass'),
@@ -88,6 +91,8 @@ gulp.task('javascript', function(done) {
       'app/templates.js',
       'app/**/*.js'
     ])
+    .pipe(replace(/AWS_ACCESS_KEY/g, process.env.VOYO_AWS_ACCESS_KEY))
+    .pipe(replace(/AWS_SECRET/g, process.env.VOYO_AWS_SECRET))
     .pipe(babel())
     .pipe(sourcemaps.init())
     .pipe(concat('voyo.js'))

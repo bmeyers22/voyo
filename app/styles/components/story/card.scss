@@ -1,0 +1,11 @@
+.story-card {
+  .actions {
+    display: flex;
+    > a {
+      &.location {
+        flex-grow: 1;
+        text-align: right;
+      }
+    }
+  }
+}

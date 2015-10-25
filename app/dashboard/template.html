@@ -1,7 +1,7 @@
-<ion-view view-title="Dashboard" hide-nav-bar="true">
+<ion-view view-title="Dashboard" >
   <ion-content>
-    <div ng-repeat="story in stories">
-      <story-card story="story"></story-card>
+    <div ng-repeat="story in stories | orderBy:'-createdAt'">
+      <story-card class="story-card" story="story"></story-card>
     </div>
   </ion-content>
 </ion-view>

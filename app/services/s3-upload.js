@@ -1,5 +1,7 @@
 angular.module('Voyo.services').service('S3Upload', function ($window) {
     // upload later on form submit or something similar
+    $window.AWS.config.update({accessKeyId: 'AWS_ACCESS_KEY', secretAccessKey: 'AWS_SECRET'});
+
     let dataURItoBlob = function (dataURI) {
       // convert base64/URLEncoded data component to raw binary data held in a string
       var byteString;
@@ -28,7 +30,6 @@ angular.module('Voyo.services').service('S3Upload', function ($window) {
       return canvas.toDataURL("image/png");
     };
 
-    $window.AWS.config.update({accessKeyId: 'AKIAJI6JQSFRH72I5JLA', secretAccessKey: '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'});
 
     return {
       // upload on file select or drop
@@ -40,7 +41,7 @@ angular.module('Voyo.services').service('S3Upload', function ($window) {
           //Getting the base64 encoded string, then converting into byte stream
           let bucketName = "dev.voyo",
            amazonS3Client = new AWS.S3(),
-           path = `post-media/${postId}/somename.png`,
+           path = `post-media/${postId}/${new Date().getTime()}.png`,
            fullPath = `https://s3.amazonaws.com/${bucketName}/${path}`;
 
           amazonS3Client.putObject({

@@ -17,14 +17,17 @@ angular.module('Voyo').factory("Story", ["$firebaseObject", 'FIREBASE_URL', 'Bas
       return new Promise((resolve, reject) => {
         var ref = new Firebase(`${FIREBASE_URL}stories/`);
         ref.orderByChild("createdAt").once("value", function(snapshot) {
-          resolve(
-            Object.keys(snapshot.val()).map(function(key) {
+          let stories;
+          if (snapshot.numChildren() > 0) {
+            stories = Object.keys(snapshot.val()).map(function(key) {
               return new Story(key);
             })
-          );
+          } else {
+            stories = [];
+          }
+          resolve(stories);
         });
-
-      })
+      });
     }
 
     return Story;
