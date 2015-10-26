@@ -1,5 +1,5 @@
 // Karma configuration
-// Generated on Mon Oct 26 2015 18:03:27 GMT-0400 (EDT)
+// Generated on Mon Oct 26 2015 17:38:37 GMT-0400 (EDT)
 
 module.exports = function(config) {
   config.set({
@@ -15,6 +15,28 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+      '../bower_components/jquery/dist/jquery.js',
+      '../bower_components/angular/angular.js',
+      '../bower_components/angular-animate/angular-animate.js',
+      '../bower_components/angular-sanitize/angular-sanitize.js',
+      '../bower_components/angular-ui-router/release/angular-ui-router.js',
+      '../bower_components/firebase/firebase.js',
+      '../bower_components/ng-messages/angular-messages.js',
+      '../bower_components/caman/dist/caman.min.js',
+      '../bower_components/caman/dist/caman.full.min.js',
+      '../bower_components/ngCordova/dist/ng-cordova.js',
+      '../bower_components/ion-affix/ion-affix.js',
+      '../bower_components/angularfire/dist/angularfire.js',
+      '../bower_components/ionic/js/ionic.js',
+      '../bower_components/ionic/js/ionic-angular.js',
+      '../bower_components/angular-mocks/angular-mocks.js',
+      '../app/app.js',
+      '../app/controllers.js',
+      '../app/router.js',
+      '../app/services.js',
+      '../app/**/*.js',
+      '../app/**/*.html',
+      'unit/**/*.js'
     ],
 
 
@@ -26,9 +48,21 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
+      '../app/**/*.js': ['babel'],
+      './**/*.js': ['babel']
     },
 
-
+    babelPreprocessor: {
+      options: {
+        sourceMap: 'inline'
+      },
+      filename: function (file) {
+        return file.originalPath.replace(/\.js$/, '.es5.js');
+      },
+      sourceFileName: function (file) {
+        return file.originalPath;
+      }
+    },
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter

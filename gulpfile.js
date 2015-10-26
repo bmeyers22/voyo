@@ -16,7 +16,8 @@ var gulp = require('gulp'),
   rename = require('gulp-rename'),
   templateCache = require('gulp-angular-templatecache'),
   queue = require('streamqueue'),
-  sh = require('shelljs');
+  sh = require('shelljs'),
+  Server = require('karma').Server;
 
 var paths = {
   sass: ['app/styles/**/*.scss'],
@@ -135,6 +136,13 @@ gulp.task('install', ['git-check'], function() {
     .on('log', function(data) {
       gutil.log('bower', gutil.colors.cyan(data.id), data.message);
     });
+});
+
+gulp.task('test', function (done) {
+  new Server({
+    configFile: __dirname + '/test/karma.conf.js',
+    singleRun: gutil.env.watch ? false : true
+  }, done).start();
 });
 
 gulp.task('git-check', function(done) {
