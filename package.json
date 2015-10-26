@@ -21,6 +21,11 @@
     "gulp-sass": "^2.0.4",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-util": "^2.2.14",
+    "jasmine-core": "^2.3.4",
+    "karma": "^0.13.14",
+    "karma-babel-preprocessor": "^5.2.2",
+    "karma-chrome-launcher": "^0.2.1",
+    "karma-jasmine": "^0.3.6",
     "main-bower-files": "^2.9.0",
     "shelljs": "^0.3.0",
     "streamqueue": "^1.1.1"
@@ -40,5 +45,8 @@
   "cordovaPlatforms": [
     "ios",
     "android"
-  ]
+  ],
+  "scripts": {
+    "test": "./node_modules/.bin/karma start unit-tests.conf.js --single-run --browsers PhantomJS"
+  }
 }
