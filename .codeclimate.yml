@@ -1,9 +1,9 @@
 languages:
    JavaScript: true
 exclude_paths:
-- "test/*"
-- "dist/*"
-- "hooks/*"
-- "vendor/*"
-- "resources/*"
-- "www/*"
+- "test/**/*"
+- "dist/**/*"
+- "hooks/**/*"
+- "vendor/**/*"
+- "resources/**/*"
+- "www/**/*"
