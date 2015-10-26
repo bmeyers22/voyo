@@ -17,7 +17,8 @@ var gulp = require('gulp'),
   templateCache = require('gulp-angular-templatecache'),
   queue = require('streamqueue'),
   sh = require('shelljs'),
-  Server = require('karma').Server;
+  Server = require('karma').Server,
+  coveralls = require('gulp-coveralls');
 
 var paths = {
   sass: ['app/styles/**/*.scss'],
@@ -143,6 +144,8 @@ gulp.task('test', function (done) {
     configFile: __dirname + '/test/karma.conf.js',
     singleRun: gutil.env.watch ? false : true
   }, done).start();
+  gulp.src('test/coverage/**/lcov.info')
+  .pipe(coveralls());
 });
 
 gulp.task('git-check', function(done) {

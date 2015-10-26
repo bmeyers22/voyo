@@ -30,6 +30,7 @@ module.exports = function(config) {
       '../bower_components/ionic/js/ionic.js',
       '../bower_components/ionic/js/ionic-angular.js',
       '../bower_components/angular-mocks/angular-mocks.js',
+      '../node_modules/karma-babel-preprocessor/node_modules/babel-core/browser-polyfill.js',
       '../app/app.js',
       '../app/controllers.js',
       '../app/router.js',
@@ -48,7 +49,7 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      '../app/**/*.js': ['babel'],
+      '../app/**/*.js': ['babel', 'coverage'],
       './**/*.js': ['babel']
     },
 
@@ -66,8 +67,19 @@ module.exports = function(config) {
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress'],
+    reporters: ['progress', 'coverage'],
 
+    coverageReporter: {
+      reporters: [
+        {
+            type: 'text-summary',
+        },
+        {
+            type: 'html',
+            dir: 'coverage/',
+        }
+      ]
+    },
 
     // web server port
     port: 9876,

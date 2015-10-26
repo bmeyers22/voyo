@@ -12,7 +12,5 @@ temp/
 *.swp
 www/dist/
 www/index.html
-
-www/index.html
-
+coverage/
 .env
