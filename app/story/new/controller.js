@@ -3,8 +3,9 @@ angular.module('Voyo.controllers').controller('StoryNewController', function ($s
   $scope.story = story;
   $scope.mediaUrl = '';
 
-  $scope.$on('PickedMediaFile', function (ev, url) {
+  $scope.$on('PickedMediaFile', function (ev, url, type) {
     $scope.mediaUrl = url;
+    $scope.mediaType = type;
     $state.go('app.story.new.filters');
   });
 

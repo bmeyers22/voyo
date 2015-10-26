@@ -1,4 +1,13 @@
 angular.module('Voyo.controllers').controller('StoryNewFiltersController', function ($scope, $state, $window, S3Upload, story) {
+
+  $scope.saveMedia = function () {
+    if ($scope.mediaType === 'image') {
+      $scope.saveImage()
+    } else if ($scope.mediaType === 'video') {
+      $scope.saveVideo()
+    }
+  }
+
   $scope.saveImage = function () {
     let canvas = $('.image-element.main')[0];
     if ($window.canvas2ImagePlugin) {
@@ -13,6 +22,15 @@ angular.module('Voyo.controllers').controller('StoryNewFiltersController', funct
       );
     }
     S3Upload.uploadCanvas(canvas, story.$id).then( (url) => {
+      story.media = url;
+      story.save().then( (story) => {
+        $state.go('app.story.new.details');
+      });
+    });
+  }
+
+  $scope.saveVideo = function () {
+    return S3Upload.uploadVideo($scope.mediaUrl, story.$id).then( (url) => {
       story.media = url;
       story.save().then( (story) => {
         $state.go('app.story.new.details');

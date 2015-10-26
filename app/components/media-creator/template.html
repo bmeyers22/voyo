@@ -1,41 +1,46 @@
-<div class="image-holder main" ng-click="getPhoto()">
-  <img class="image-element main" width="320" height="320" data-camanheight="320" data-camanwidth="320" ng-src="{{photoUrl}}"/>
+<div class="image-holder main" ng-if="mediaType === 'image'">
+  <img class="image-element main" width="320" height="320" data-camanheight="320" data-camanwidth="320" ng-src="{{mediaUrl}}"/>
 </div>
-<div class="bar bar-footer bar-dark">
+<div class="video-holder main" ng-if="mediaType === 'video'">
+  <video class="video-element main" width="320" height="320" autoplay loop webkit-playsinline>
+    <source ng-src="{{mediaUrl}}" type="video/mp4">
+  </video>
+</div>
+<div class="bar bar-footer bar-dark" ng-if="mediaType === 'image'">
   <ion-scroll class="thumbs" direction="x">
     <a class="thumb" ng-click="applyFilter('reset')" >
       <div class="image-holder" data-filter="reset">
-        <img class="image-element reset" width="64" height="64" ng-src="{{photoUrl}}"/>
+        <img class="image-element reset" width="64" height="64" ng-src="{{mediaUrl}}"/>
       </div>
       <div>None</div>
     </a>
     <a class="thumb" ng-click="applyFilter('brightness')" >
       <div class="image-holder" data-filter="brightness">
-        <img class="image-element brightness" width="64" height="64" ng-src="{{photoUrl}}"/>
+        <img class="image-element brightness" width="64" height="64" ng-src="{{mediaUrl}}"/>
       </div>
       <div>Brightness</div>
     </a>
     <a class="thumb" ng-click="applyFilter('noise')" >
       <div class="image-holder" data-filter="noise">
-        <img class="image-element noise" width="64" height="64" ng-src="{{photoUrl}}"/>
+        <img class="image-element noise" width="64" height="64" ng-src="{{mediaUrl}}"/>
       </div>
       <div>Noise</div>
     </a>
     <a class="thumb" ng-click="applyFilter('sepia')" >
       <div class="image-holder" data-filter="sepia">
-        <img class="image-element sepia" width="64" height="64" ng-src="{{photoUrl}}"/>
+        <img class="image-element sepia" width="64" height="64" ng-src="{{mediaUrl}}"/>
       </div>
       <div>Sepia</div>
     </a>
     <a class="thumb" ng-click="applyFilter('contrast')" >
       <div class="image-holder" data-filter="contrast">
-        <img class="image-element contrast" width="64" height="64" ng-src="{{photoUrl}}"/>
+        <img class="image-element contrast" width="64" height="64" ng-src="{{mediaUrl}}"/>
       </div>
       <div>Contrast</div>
     </a>
     <a class="thumb" ng-click="applyFilter('color')" >
       <div class="image-holder" data-filter="color">
-        <img class="image-element color" width="64" height="64" ng-src="{{photoUrl}}"/>
+        <img class="image-element color" width="64" height="64" ng-src="{{mediaUrl}}"/>
       </div>
       <div>Color</div>
     </a>

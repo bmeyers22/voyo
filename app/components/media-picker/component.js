@@ -3,33 +3,37 @@ angular.module('Voyo').directive('mediaPicker', function($compile, $q, $window, 
     scope: true,
     controller: ['$scope', function($scope) {
 
-      let updateMediaUrl = function (url) {
-        debugger
-        $scope.$emit('PickedMediaFile', url);
+      let updateMediaUrl = function (url, type) {
+        $scope.$emit('PickedMediaFile', url, type);
       }
 
       $scope.testGetMedia = function() {
-        $scope.$emit('PickedMediaFile', 'assets/img/login-bg.jpg');
+        $scope.$emit('PickedMediaFile', 'assets/img/login-bg.jpg', 'image');
       }
 
       $scope.selectMedia = function() {
         return MediaCaptureService.selectMedia()
-          .then( updateMediaUrl, (err) => {
-            debugger
+          .then( function (url) {
+            updateMediaUrl(url, 'image');
+          }, (err) => {
             console.error(err)
           });
       }
 
       $scope.takePhoto = function () {
         return MediaCaptureService.takePhoto()
-          .then( updateMediaUrl, (err) => {
+          .then( function (url) {
+            updateMediaUrl(url, 'image');
+          }, (err) => {
             console.error(err)
           })
       }
 
       $scope.takeVideo = function () {
         return MediaCaptureService.takeVideo()
-          .then( updateMediaUrl, (err) => {
+          .then( function (videos) {
+            updateMediaUrl(videos[0].fullPath, 'video');
+          }, (err) => {
             console.error(err)
           });
       }

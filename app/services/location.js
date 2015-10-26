@@ -36,9 +36,15 @@ angular.module('Voyo.services').service('LocationService', function ($window, $c
 
             service.nearbySearch(request, function(results, status) {
               if (status == google.maps.places.PlacesServiceStatus.OK) {
-                let result = results[0];
-                result.geometry = geometryToJson(result.geometry);
-                resolve(result);
+                let result = results[0],
+                  place = {
+                    geometry: geometryToJson(result.geometry),
+                    icon: result.icon,
+                    name: result.name,
+                    place_id: result.place_id,
+                    vicinity: result.vicinity
+                  }
+                resolve(place);
               } else {
                 resolve(null);
               }

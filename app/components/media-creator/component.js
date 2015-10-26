@@ -1,7 +1,8 @@
 angular.module('Voyo').directive('mediaCreator', function($window) {
   return {
     scope: {
-      mediaUrl: '='
+      mediaUrl: '=',
+      mediaType: '='
     },
     controller: ['$scope', function($scope) {
       $scope.currentFilter = null;
@@ -128,10 +129,11 @@ angular.module('Voyo').directive('mediaCreator', function($window) {
         scope.resetMain();
         scope.resetThumbs();
       }
-
-      scope.$watch('mediaUrl', function (val, old) {
-        scope.resetImages();
-      });
+      if (scope.mediaType === 'image') {
+        scope.$watch('mediaUrl', function (val, old) {
+          scope.resetImages();
+        });
+      }
 
     },
     templateUrl: 'components/media-creator/template.html'

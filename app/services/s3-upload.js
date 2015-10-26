@@ -33,6 +33,39 @@ angular.module('Voyo.services').service('S3Upload', function ($window) {
 
     return {
       // upload on file select or drop
+      uploadVideo(url, postId) {
+        return new Promise( (resolve, reject) => {
+          window.resolveLocalFileSystemURL(`file://${url}`, (fileEntry) => {
+
+           fileEntry.file((data) => {
+             let reader = new FileReader();
+
+             reader.onloadend = function (e) {
+               console.log(e.target.result);
+               let blobObj = dataURItoBlob(e.target.result),
+                 blob = blobObj.blob,
+                 mimeType = blobObj.mimeType;
+               //Getting the base64 encoded string, then converting into byte stream
+               let bucketName = "dev.voyo",
+                amazonS3Client = new AWS.S3(),
+                path = `post-media/${postId}/${new Date().getTime()}.${mimeType.split('/')[1]}`,
+                fullPath = `https://s3.amazonaws.com/${bucketName}/${path}`;
+
+               amazonS3Client.putObject({
+                 Bucket: bucketName,
+                 Key: path,
+                 Body: blob,
+                 ACL: 'public-read',
+                 ContentType: mimeType
+               }, function (response) {
+                 resolve(fullPath);
+               });
+             }
+             reader.readAsDataURL(data);
+           });
+          });
+        })
+      },
       uploadCanvas(canvas, postId) {
         return new Promise( (resolve, reject) => {
           let blobObj = dataURItoBlob(generateCanvasDataUrl(canvas)),
