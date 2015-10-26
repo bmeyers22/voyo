@@ -5,5 +5,5 @@ before_script:
   - npm install -g gulp cordova ionic
 script:
   - gulp build
-  -ionic build ios
-  -ionic build android
+  - ionic build ios
+  - ionic build android
