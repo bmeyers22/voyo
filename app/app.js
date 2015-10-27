@@ -15,8 +15,10 @@ VOYO.run( function ($ionicPlatform, $cordovaStatusbar, $rootScope, Auth) {
       cordova.plugins.Keyboard.disableScroll(true)
     }
 
-    $cordovaStatusbar.overlaysWebView(true)
-    $cordovaStatusbar.style(3);
+    if (window.cordova) {
+      $cordovaStatusbar.overlaysWebView(true)
+      $cordovaStatusbar.style(3);
+    }
 
   });
 });

@@ -6,6 +6,7 @@ before_script:
   - bower i
 script:
   - gulp build
+  - npm test
   - ionic platform add ios
   - ionic platform add android
   - ionic build ios
