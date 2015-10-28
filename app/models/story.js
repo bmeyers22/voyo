@@ -4,14 +4,17 @@ angular.module('Voyo').factory("Story", ["$firebaseObject", 'FIREBASE_URL', 'Bas
     let defaultProperties = {
       title: '',
       caption: '',
-      media: ''
+      media: '',
+      createdAt: new Date().getTime()
     };
     let Story = BaseModel('stories', defaultProperties, Timestampable);
     Story.create = function(properties) {
       var arr = new Firebase(`${FIREBASE_URL}stories/`),
         ref = arr.push(defaultProperties);
 
-      return new Story(ref.key());
+      return new Story(ref.key()).$loaded().then( (story) => {
+        return story;
+      })
     }
     Story.get = function() {
       return new Promise((resolve, reject) => {

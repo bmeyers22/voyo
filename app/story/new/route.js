@@ -1,6 +1,7 @@
 angular.module('Voyo')
   .config( function ($stateProvider, $urlRouterProvider) {
     $stateProvider.state('app.story.new', {
+      cache: false,
       url: '/new',
       abstract: true,
       views: {
@@ -11,7 +12,7 @@ angular.module('Voyo')
       },
       resolve: {
         story: ['$state', 'Story', function ($state, Story) {
-          return Story.create().$loaded();
+          return Story.create();
         }]
       }
     });

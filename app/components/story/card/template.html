@@ -6,9 +6,7 @@
 
   <div class="item item-body">
     <img class="full-image" ng-src="{{story.media}}" ng-if="!isVideo()">
-    <video play-video class="video-element main" width="320" height="320" autoplay webkit-playsinline loop ng-if="isVideo()">
-      <source ng-src="{{trustSrc(story.media)}}" type="video/mp4">
-    </video>
+    <video-player video-url="{{story.media}}" ng-if="isVideo()"></video-player>
     <p>{{story.caption}}</p>
     <div class="actions">
       <a class="subdued">1 Like</a>

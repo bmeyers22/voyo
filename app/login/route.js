@@ -9,7 +9,7 @@ angular.module('Voyo')
           // $waitForAuth returns a promise so the resolve waits for it to complete
           return Auth.auth.$waitForAuth().then( (obj) => {
             if (obj != null) {
-              $state.go('app.dash');
+              $state.go('app.tabs.dash');
             }
           })
         }]

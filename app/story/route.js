@@ -4,11 +4,10 @@ angular.module('Voyo')
       url: '/story',
       abstract: true,
       views: {
-        'app-story': {
+        "overlay": {
           templateUrl: 'story/template.html',
           controller: 'StoryController'
         }
-      },
-      templateUrl: 'story/template.html'
+      }
     });
   });

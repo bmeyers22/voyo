@@ -13,7 +13,7 @@ angular.module('Voyo.controllers').controller('LoginController', function ($scop
           email: '',
           password: ''
         };
-        $state.go('app.dash');
+        $state.go('app.tabs.dash');
       }).catch(errMessage)
   };
 
@@ -23,14 +23,14 @@ angular.module('Voyo.controllers').controller('LoginController', function ($scop
         email: '',
         password: ''
       };
-      $state.go('app.dash');
+      $state.go('app.tabs.dash');
     });
   };
 
   $scope.createUser = function () {
     Auth.register($scope.user)
       .then( (user) => {
-        $state.go('app.dash');
+        $state.go('app.tabs.dash');
       })
       .catch(errMessage);
   };

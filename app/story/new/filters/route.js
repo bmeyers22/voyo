@@ -1,6 +1,7 @@
 angular.module('Voyo')
   .config( function ($stateProvider, $urlRouterProvider) {
     $stateProvider.state('app.story.new.filters', {
+      cache: false,
       url: '/filters',
       views: {
         'app-story-new-container': {

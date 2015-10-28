@@ -8,7 +8,7 @@ angular.module('Voyo.controllers').controller('StoryNewDetailsController', funct
 
   $scope.complete = function () {
     $scope.story.save().then(() => {
-      $state.go('app.dash');
+      $state.go('app.tabs.dash');
     })
   }
 });

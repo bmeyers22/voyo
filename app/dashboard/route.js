@@ -1,9 +1,9 @@
 angular.module('Voyo')
   .config( function ($stateProvider, $urlRouterProvider) {
-    $stateProvider.state('app.dash', {
+    $stateProvider.state('app.tabs.dash', {
       url: '/dash',
       views: {
-        'app-dash': {
+        'tabs-dash': {
           templateUrl: 'dashboard/template.html',
           controller: 'DashboardController'
         }

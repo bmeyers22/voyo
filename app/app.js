@@ -5,7 +5,7 @@
 // // the 2nd parameter is an array of 'requires'
 // // 'starter.services' is found in services.js
 // // 'starter.controllers' is found in controllers.js
-window.VOYO = angular.module('Voyo', ['ionic', 'ion-affix', 'ngCordova', 'firebase', 'Voyo.controllers', 'Voyo.services', 'templates'])
+window.VOYO = angular.module('Voyo', ['ionic', 'ion-affix', 'ngAnimate', 'ngCordova', 'firebase', 'Voyo.controllers', 'Voyo.services', 'templates'])
 
 VOYO.constant('FIREBASE_URL', 'https://voyo.firebaseio.com/');
 VOYO.run( function ($ionicPlatform, $cordovaStatusbar, $rootScope, Auth) {
