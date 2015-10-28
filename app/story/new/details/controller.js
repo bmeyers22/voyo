@@ -1,4 +1,4 @@
-angular.module('Voyo.controllers').controller('StoryNewDetailsController', function ($scope, $state, LocationService, Story, story) {
+angular.module('Voyo.controllers').controller('StoryNewDetailsController', function ($scope, $state, LocationService, story) {
   $scope.story = story;
 
   LocationService.getNearestPlace().then((place) => {
@@ -7,7 +7,7 @@ angular.module('Voyo.controllers').controller('StoryNewDetailsController', funct
 
 
   $scope.complete = function () {
-    return Story.create($scope.story).then(() => {
+    return story.save().then(() => {
       $state.go('app.tabs.dash');
     });
   }
