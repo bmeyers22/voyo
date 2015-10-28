@@ -1,10 +1,19 @@
 .story-card {
-  .actions {
-    display: flex;
-    > a {
-      &.location {
-        flex-grow: 1;
-        text-align: right;
+  .item {
+    &.header {
+      .time-ago {
+        float: right;
+      }
+    }
+    &.item-body {
+      .actions {
+        display: flex;
+        > a {
+          &.location {
+            flex-grow: 1;
+            text-align: right;
+          }
+        }
       }
     }
   }

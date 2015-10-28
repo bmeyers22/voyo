@@ -1,7 +1,8 @@
 <div class="list card">
 
-  <div class="item" ion-affix data-affix-within-parent-with-class="card">
+  <div class="item header" ion-affix data-affix-within-parent-with-class="card">
     <h2>{{story.title}}</h2>
+    <p class="time-ago"><fuzzy-time date="story.createdAt"></fuzzy-time></p>
   </div>
 
   <div class="item item-body">
