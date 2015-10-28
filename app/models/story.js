@@ -1,13 +1,13 @@
 angular.module('Voyo').factory("Story", ["$firebaseObject", 'FIREBASE_URL', 'BaseModel', 'Timestampable',
   function($firebaseObject, FIREBASE_URL, BaseModel, Timestampable) {
     // create a new service based on $firebaseObject
-    let defaultProperties = function (properties) {
-      return angular.extend({
+    let defaultProperties = function () {
+      return {
         title: '',
         caption: '',
         media: '',
         createdAt: new Date().getTime()
-      }, properties);
+      }
     };
     let Story = BaseModel('stories', defaultProperties(), Timestampable);
     Story.create = function(properties) {
@@ -16,19 +16,6 @@ angular.module('Voyo').factory("Story", ["$firebaseObject", 'FIREBASE_URL', 'Bas
 
       return new Story(ref.key()).$loaded().then( (story) => {
         return story;
-      })
-    }
-    Story.new = function(properties) {
-      var arr = new Firebase(`${FIREBASE_URL}stories/`),
-        ref = arr.push();
-
-      return new Story(ref.key()).$loaded().then( (story) => {
-        return story;
-      })
-
-      return new Promise( (resolve, reject) => {
-        resolve(angular.extend(defaultProperties(), properties));
-
       })
     }
     Story.get = function() {
