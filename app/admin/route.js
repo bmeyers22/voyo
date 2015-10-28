@@ -3,6 +3,10 @@ angular.module('Voyo')
     $stateProvider.state('app.admin', {
       url: '/admin',
       abstract: true,
-      templateUrl: 'admin/template.html'
+      views: {
+        'main': {
+          templateUrl: 'admin/template.html'
+        }
+      }
     });
   });

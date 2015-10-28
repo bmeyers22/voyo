@@ -23,18 +23,14 @@ angular.module('Voyo.controllers').controller('StoryNewFiltersController', funct
     }
     S3Upload.uploadCanvas(canvas, story.$id).then( (url) => {
       story.media = url;
-      story.save().then( (story) => {
-        $state.go('app.story.new.details');
-      });
+      $state.go('app.story.new.details');
     });
   }
 
   $scope.saveVideo = function () {
     return S3Upload.uploadVideo($scope.mediaUrl, story.$id).then( (url) => {
       story.media = url;
-      story.save().then( (story) => {
-        $state.go('app.story.new.details');
-      });
+      $state.go('app.story.new.details');
     });
   }
 

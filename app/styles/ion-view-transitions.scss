@@ -1,13 +1,22 @@
 /* The starting CSS styles for the enter animation */
 ion-view {
-  // &.slide-up{
-  //   color: red;
-  //   .ng-enter {
-  //     transition:0.5s linear all;
-  //     top: 100%;
-  //   }
-  //   .ng-enter.ng-enter-active {
-  //     top: 0;
-  //   }
-  // }
+  &.slide-up{
+    -webkit-animation-timing-function: ease-out; /* Chrome, Safari, Opera */
+    animation-timing-function: ease-out;
+    -webkit-animation: slideUp ease-in 1;
+    animation: slideUp ease-in 1;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+    -webkit-animation-duration: 250ms;
+    animation-duration: 250ms;
+  }
+}
+
+@-webkit-keyframes slideUp {
+  0% {
+    -webkit-transform: translate3d(0%,100%,0);
+  }
+  100% {
+    -webkit-transform: translate3d(0%,0,0);
+  }
 }

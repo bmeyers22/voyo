@@ -12,7 +12,7 @@ angular.module('Voyo')
       },
       resolve: {
         story: ['$state', 'Story', function ($state, Story) {
-          return Story.create();
+          return Story.new();
         }]
       }
     });
