@@ -1,4 +1,4 @@
-angular.module('Voyo').directive('shareButton', function($ionicActionSheet, $timeout) {
+angular.module('Voyo').directive('shareButton', function($ionicActionSheet) {
   return {
     replace: true,
     templateUrl: 'components/story/card/share-button/template.html',

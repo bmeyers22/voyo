@@ -25,7 +25,7 @@ var paths = {
   js: ['app/**/*.js'],
   html: ['app/**/*.html'],
   index: ['app/index.html'],
-  fonts: ['./bower_components/ionic/fonts/**/*.{ttf,woff,eot,svg}', 'app/fonts']
+  fonts: ['./bower_components/ionic/fonts/**/*.{ttf,woff,eot,svg}', 'app/fonts/*.{ttf,woff,eot,svg}']
 };
 
 function fileTypeFilter (files, extension) {
@@ -103,15 +103,6 @@ gulp.task('javascript', function(done) {
     .pipe(gulp.dest('www/dist'));
 });
 
-// gulp.task('templates', function () {
-//   return gulp.src('app/**/*.html')
-//     .pipe(debug({title: 'templates'}))
-//     .pipe(htmlmin({ collapseWhitespace: true }))
-//     .pipe(ngHtml2Js({ moduleName: 'templates' }))
-//     .pipe(concat('templates.js'))
-//     .pipe(ngAnnotate())
-//     .pipe(gulp.dest('./www/dist/'));
-// });
 gulp.task('templates', function () {
   return gulp.src('app/**/*.html')
     .pipe(templateCache())
@@ -120,8 +111,8 @@ gulp.task('templates', function () {
 
 gulp.task('fonts', function () {
   return gulp.src(paths.fonts)
-  .pipe(debug({title: 'fonts'}))
-  .pipe(gulp.dest('./www/assets/fonts'));
+    .pipe(debug({title: 'fonts'}))
+    .pipe(gulp.dest('./www/assets/fonts'));
 });
 
 gulp.task('images', function () {

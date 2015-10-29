@@ -1,4 +1,4 @@
-angular.module('Voyo').directive('storyCard', function($ionicPopup, $sce, $timeout) {
+angular.module('Voyo').directive('storyCard', function($ionicPopup, $sce) {
   return {
     scope: {
       story: '='

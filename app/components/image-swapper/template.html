@@ -1,0 +1,4 @@
+<img ng-repeat="img in images" ng-class="{active: img.active}" ng-src="{{img.url}}" data-text-color="{{image.color}}" />
+<div class="text-container" ng-if="textStr">
+  <h1 class="text" ng-class="currentImage.color">{{textStr}}</h1>
+</div>

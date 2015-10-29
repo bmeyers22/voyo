@@ -1,4 +1,4 @@
-angular.module('Voyo').directive('loginForm', function($interval, $ionicContentBanner, Auth) {
+angular.module('Voyo').directive('loginForm', function($ionicContentBanner, Auth) {
   return {
     scope: true,
     templateUrl: 'components/login-form/template.html',
@@ -58,23 +58,6 @@ angular.module('Voyo').directive('loginForm', function($interval, $ionicContentB
         email: '',
         password: ''
       };
-
-      let swapImages = function () {
-        let container = element.find('.image-slideshow'),
-          images = container.find('img'),
-          active = container.find('.active'),
-          index = active.index(),
-          nextIndex = index + 1 === images.length ? 0 : index + 1,
-          nextEl = $(images[nextIndex]);
-
-        active.removeClass('active');
-        nextEl.addClass('active');
-        element.find('.logo')
-          .removeClass('dark light')
-          .addClass(nextEl.data('text-color'));
-
-      }
-      $interval(swapImages, 4000);
-    },
+    }
   }
 });

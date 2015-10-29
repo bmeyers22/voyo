@@ -11,8 +11,13 @@ angular.module('Voyo').directive('fuzzyTime', function(amMoment, $interval) {
       let transformString = function (suffix) {
 
       };
-      $interval(setTime, 60000);
+      let timer = $interval(setTime, 60000);
       scope.$watch('date', setTime)
+      scope.$on("$destroy", function() {
+        if (timer) {
+          $interval.cancel(timer);
+        }
+      });
     },
   }
 });
