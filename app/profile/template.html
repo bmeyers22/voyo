@@ -1,9 +1,41 @@
-<ion-view view-title="Profile">
+<ion-view view-title="Profile" class="profile-wrapper">
   <ion-content>
-    <ul class="list">
-        <li class="item item-assertive" ng-click="logout()">
-          Logout
-        </li>
-    </ul>
+    <div class="list">
+      <label class="item item-input">
+        <span class="input-label">Name</span>
+        <input type="text" placeholder="Name" ng-model="custom.name" ng-change="updateNames()">
+      </label>
+      <label class="item item-input">
+        <span class="input-label"><i class="icon ion-person"></i></span>
+        <input type="text" placeholder="Username" ng-model="profile.userName">
+      </label>
+      <label class="item item-input">
+        <span class="input-label"><i class="icon ion-information-circled"></i></span>
+        <input type="text" placeholder="Bio" ng-model="profile.bio" />
+      </label>
+      <div class="item item-divider">
+        <i class="icon ion-locked"></i> Private Information
+      </div>
+      <label class="item item-input">
+        <span class="input-label"><i class="icon ion-email"></i></span>
+        <input type="text" placeholder="Email" ng-model="currentUser.email" ng-change="currentUser.save()" />
+      </label>
+      <label class="item item-input">
+        <span class="input-label"><i class="icon ion-iphone"></i></span>
+        <input type="text" placeholder="Phone" ng-model="currentUser.phone" ng-change="currentUser.save()"/>
+      </label>
+      <label class="item item-input item-select">
+        <span class="input-label"><i class="icon ion-transgender"></i></span>
+        <select ng-model="currentUser.gender" ng-change="currentUser.save()">
+          <option value="">Not Specified</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+      </label>
+    </div>
   </ion-content>
+  <div class="bar bar-footer bar-assertive" ng-click="logout()">
+    <div class="title">Logout</div>
+  </div>
+
 </ion-view>

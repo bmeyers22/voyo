@@ -9,8 +9,8 @@ angular.module('Voyo')
         }
       },
       resolve: {
-        currentUser: ['$state', 'Auth', 'User', 'currentAuth', function ($state, Auth, User, currentAuth) {
-          return User.find(currentAuth.uid).$loaded();
+        currentUser: ['currentUser', function (currentUser) {
+          return currentUser;
         }],
         stories: ['$state', 'Story', function ($state, Story) {
           return Story.get();

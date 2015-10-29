@@ -70,6 +70,9 @@ angular.module('Voyo').run(['$rootScope', '$state', 'Auth', function ($rootScope
         // # $requireAuth returns a promise so the resolve waits for it to complete
         // # If the promise is rejected, it will throw a $stateChangeError (see above)
         return Auth.auth.$requireAuth()
+      }],
+      currentUser: ['$state', 'Auth', 'User', 'currentAuth', function ($state, Auth, User, currentAuth) {
+        return User.find(currentAuth.uid).$loaded();
       }]
     }
   });

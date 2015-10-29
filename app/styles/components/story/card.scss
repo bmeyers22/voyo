@@ -1,20 +1,25 @@
+.card {
+  margin: 0;
+}
 .story-card {
-  .item {
-    &.header {
-      .time-ago {
-        float: right;
-      }
-    }
-    &.item-body {
-      .actions {
+  .card {
+    .item {
+      &.header {
         display: flex;
-        > a {
-          &.location {
-            flex-grow: 1;
-            text-align: right;
+        justify-content: space-between;
+      }
+      &.item-body {
+        .actions {
+          display: flex;
+          > a {
+            &.location {
+              flex-grow: 1;
+              text-align: right;
+            }
           }
         }
       }
     }
+
   }
 }

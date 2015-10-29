@@ -51,8 +51,6 @@ angular.module('Voyo.services').service( 'Auth', function (FIREBASE_URL, $fireba
         //  store user data in Firebase after creating account
         // console.log('datos del usuario:' + JSON.stringify(data))
         return UserService.create(data.uid, user);
-      }).catch( (error) => {
-        console.log(error);
       });
     },
 

@@ -7,6 +7,14 @@ angular.module('Voyo')
           templateUrl: 'profile/template.html',
           controller: 'ProfileController'
         }
+      },
+      resolve: {
+        currentUser: ['currentUser', function (currentUser) {
+          return currentUser;
+        }],
+        profile: ['$state', 'Auth', 'Profile', 'currentAuth', function ($state, Auth, Profile, currentAuth) {
+          return Profile.find(currentAuth.uid).$loaded();
+        }]
       }
     });
   });

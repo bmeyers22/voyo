@@ -11,6 +11,7 @@ window.VOYO = angular.module('Voyo', [
   'angularMoment',
   'ngAnimate',
   'ngCordova',
+  'ngLodash',
   'firebase',
   'Voyo.controllers',
   'Voyo.services',

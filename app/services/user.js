@@ -2,7 +2,8 @@ angular.module('Voyo.services').service( 'UserService', function (User, Profile)
 
   return {
     createUser(uid, properties) {
-      return User.create(uid, properties);
+      let props = angular.extend({}, properties)
+      return User.create(uid, props);
     },
     createProfile(uid, properties) {
       return Profile.create(uid, properties);

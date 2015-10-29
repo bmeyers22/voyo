@@ -24,7 +24,8 @@ var paths = {
   sass: ['app/styles/**/*.scss'],
   js: ['app/**/*.js'],
   html: ['app/**/*.html'],
-  index: ['app/index.html']
+  index: ['app/index.html'],
+  fonts: ['./bower_components/ionic/fonts/**/*.{ttf,woff,eot,svg}', 'app/fonts']
 };
 
 function fileTypeFilter (files, extension) {
@@ -34,7 +35,7 @@ function fileTypeFilter (files, extension) {
 
 
 gulp.task('default', ['build']);
-gulp.task('build', [ 'clean-dist', 'index', 'sass', 'vendor-javascript', 'javascript', 'templates', 'fonts']);
+gulp.task('build', [ 'clean-dist', 'index', 'sass', 'vendor-javascript', 'javascript', 'templates', 'fonts', 'images']);
 
 gulp.task('clean-dist', function() {
   return sh.rm('-r', 'www/dist');
@@ -118,11 +119,17 @@ gulp.task('templates', function () {
 });
 
 gulp.task('fonts', function () {
-  return gulp.src([
-    './bower_components/ionic/fonts/**/*.{ttf,woff,eot,svg}',
-  ])
+  return gulp.src(paths.fonts)
   .pipe(debug({title: 'fonts'}))
   .pipe(gulp.dest('./www/assets/fonts'));
+});
+
+gulp.task('images', function () {
+  return gulp.src([
+    './app/images/*',
+  ])
+  .pipe(debug({title: 'images'}))
+  .pipe(gulp.dest('./www/assets/img'));
 });
 
 gulp.task('watch', function() {

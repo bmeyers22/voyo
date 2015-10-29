@@ -7,9 +7,12 @@ angular.module('Voyo').directive('fuzzyTime', function(amMoment, $interval) {
     link: function(scope, element, attrs, controllers) {
       let setTime = function () {
         scope.timeAgo = moment(scope.date).fromNow();
-      }
+      };
+      let transformString = function (suffix) {
+
+      };
       $interval(setTime, 60000);
-      setTime();
+      scope.$watch('date', setTime)
     },
   }
 });

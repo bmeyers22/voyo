@@ -1,15 +1,55 @@
 .login-wrapper {
-  .scroll-content {
+  .login-form {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    .login-content {
-      .logo {
-        text-align: center;
+    height: 100%;
+    background: #000;
+    .image-slideshow {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      img {
+        width: 100%;
+        position: absolute;
+        opacity: 0;
+        transition: opacity 2s linear;
+        &.active {
+          opacity: 1;
+        }
       }
+    }
+    .logo-container {
+      flex-grow: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1;
+      .logo {
+        font-family: 'Damion';
+        font-size: 100px;
+        text-align: center;
+        transition: color 2s ease;
+        &.dark {
+          color: #333;
+        }
+        &.light {
+          color: #fff;
+        }
+      }
+    }
 
+    .form {
+      background: #fff;
       .list {
         background: #fff;
+      }
+      .button-facebook {
+        i {
+          position: absolute;
+          left: 16px;
+        }
       }
     }
   }

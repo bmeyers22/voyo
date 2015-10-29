@@ -18,10 +18,10 @@ angular.module('Voyo').factory("Story", ["$firebaseObject", 'FIREBASE_URL', 'Bas
         return story;
       })
     }
-    Story.get = function() {
+    Story.get = function(options) {
       return new Promise((resolve, reject) => {
         var ref = new Firebase(`${FIREBASE_URL}stories/`);
-        ref.orderByChild("createdAt").once("value", function(snapshot) {
+        ref.orderByChild("createdAt").startAt().once("value", function(snapshot) {
           let stories;
           if (snapshot.numChildren() > 0) {
             stories = Object.keys(snapshot.val()).map(function(key) {
