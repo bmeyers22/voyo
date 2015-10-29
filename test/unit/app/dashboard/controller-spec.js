@@ -7,9 +7,11 @@ describe("DashboardController", function () {
 
       module("Voyo.controllers");
       module("Voyo", function($provide) {
-      $provide.service('stories', function() {
-          return {
-          };
+        $provide.service('stories', function() {
+          return {};
+        });
+        $provide.service('Story', function() {
+          return {};
         });
       });
       // INJECT! This part is critical
