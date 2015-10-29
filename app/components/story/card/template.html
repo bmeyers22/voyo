@@ -6,8 +6,14 @@
   </div>
 
   <div class="item item-body">
-    <img class="full-image" ng-src="{{story.media}}" ng-if="!isVideo()">
-    <video-player video-url="{{story.media}}" ng-if="isVideo()"></video-player>
+    <div class="asset-placeholder">
+      <div class="dummy"></div>
+      <img class="full-image" ng-src="{{story.media}}" ng-if="!isVideo">
+      <video-player video-url="{{story.media}}" ng-if="isVideo"></video-player>
+      <div class="loader" ng-if="!loaded">
+        <i class="icon ion-load-c"></i>
+      </div>
+    </div>
     <p>{{story.caption}}</p>
     <div class="actions">
       <a class="subdued">1 <i class="icon ion-star"></i></a>

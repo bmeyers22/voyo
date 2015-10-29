@@ -31,7 +31,7 @@ angular.module('Voyo').directive('imageSwapper', function($interval) {
         scope.currentImage = scope.images[nextIndex];
         scope.currentImage.active = true;
       };
-      let timer = $interval(swapImages, 4000);
+      let timer = $interval(swapImages, 6000);
       scope.$on("$destroy", function() {
         if (timer) {
           $interval.cancel(timer);
