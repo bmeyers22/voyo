@@ -10,13 +10,13 @@
       <input type="password" name="password" placeholder="Password" ng-model="user.password">
     </label>
   </div>
-  <button class="button button-block button-positive" ng-click="signIn()">
+  <button class="button button-block button-positive" on-tap="signIn()">
     Login
   </button>
-  <button class="button button-block button-facebook facebook-text" ng-click="socialLogin('facebook')">
+  <button class="button button-block button-facebook facebook-text" on-tap="socialLogin('facebook')">
     <i class="icon ion-social-facebook"></i> Facebook
   </button>
-  <button class="button button-block" ng-click="createUser()">
+  <button class="button button-block" on-tap="createUser()">
     Register
   </button>
 </form>

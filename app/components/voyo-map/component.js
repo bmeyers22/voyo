@@ -15,7 +15,7 @@ angular.module('Voyo').directive('voyoMap', function($compile) {
       };
 
       $scope.clickTest = function() {
-        alert('Example of infowindow with ng-click')
+        alert('Example of infowindow with on-tap')
       };
 
     }],
@@ -29,8 +29,8 @@ angular.module('Voyo').directive('voyoMap', function($compile) {
       };
       let map = new google.maps.Map(element.find('.map-element')[0], mapOptions);
 
-      //Marker + infowindow + angularjs compiled ng-click
-      let contentString = "<div><a ng-click='clickTest()'>Click me!</a></div>";
+      //Marker + infowindow + angularjs compiled on-tap
+      let contentString = "<div><a on-tap='clickTest()'>Click me!</a></div>";
       let compiled = $compile(contentString)(scope);
 
       let infowindow = new google.maps.InfoWindow({

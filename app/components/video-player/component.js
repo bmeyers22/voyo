@@ -15,9 +15,9 @@ angular.module('Voyo').directive('videoPlayer', function($sce, $window, $ionicSc
         waypoint = new Waypoint({
           element: videoEl,
           handler: function(direction) {
-            if (!scope.userInteracted) {
-              scope.play();
-            }
+            // if (!scope.userInteracted) {
+            //   scope.play();
+            // }
           },
           context: $('.dashboard-content-wrapper.scroll-content')[0]
         });

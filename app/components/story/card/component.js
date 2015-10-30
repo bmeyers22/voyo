@@ -16,19 +16,35 @@ angular.module('Voyo').directive('storyCard', function($ionicPopup, $sce, $timeo
       }
     }],
     link: function(scope, element, attrs) {
+      function checkLoad(video) {
+        if (video.readyState === 4) {
+          scope.loaded = true
+        } else {
+          $timeout(function () {
+            checkLoad(video);
+          }, 100);
+        }
+      }
       scope.loaded = false;
       scope.$on('Action:Share', scope.handleShare)
       scope.story.$loaded().then(() => {
         scope.isVideo = /.quicktime$/.test(scope.story.media);
         $timeout(function () {
+          let el, evName;
           if (scope.isVideo) {
-            element.find('video').on('loadeddata', () => {
-              scope.loaded = true;
-            });
+            el = element.find('video');
+            evName = 'loadeddata';
+            checkLoad(el[0])
           } else {
-            element.find('img').on('load', () => {
-              scope.loaded = true;
-            });
+            el = element.find('img');
+            evName = 'load';
+          }
+          if (el[0].complete) {
+            scope.loaded = true
+          } else {
+            el.on(evName, () => {
+              scope.loaded = true
+            })
           }
         }, 1);
       })
