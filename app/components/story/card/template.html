@@ -10,7 +10,7 @@
       <div class="dummy"></div>
       <img class="full-image" ng-src="{{story.media}}" ng-if="!isVideo">
       <video-player video-url="{{story.media}}" ng-if="isVideo"></video-player>
-      <div class="loader" ng-if="!loaded">
+      <div class="loader" ng-if="!loaded && !isVideo">
         <i class="icon ion-load-c"></i>
       </div>
     </div>

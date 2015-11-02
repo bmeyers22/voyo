@@ -60,13 +60,13 @@ gulp.task('sass', function() {
     .pipe(gulp.dest('www/dist/'))
 
   gulp.src('app/styles/app.scss')
-    .pipe(autoprefixer({
-      browsers: ['last 4 versions']
-    }))
     .pipe(sass({
       errLogToConsole: true
     }))
     .pipe(concat('voyo.css'))
+    .pipe(autoprefixer({
+      browsers: ['last 2 versions']
+    }))
     .pipe(gulp.dest('www/dist/'));
 
 });
