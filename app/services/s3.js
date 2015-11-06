@@ -56,10 +56,15 @@ angular.module('Voyo.services').service('S3Service', function ($window) {
              let reader = new FileReader();
 
              reader.onloadend = function (e) {
-               console.log(e.target.result);
+               let mimeType;
+               if (ionic.Platform.isIOS()) {
+                 mimeType = 'video/mp4';
+               } else {
+                 mimeType = 'video/mp4';
+               }
+
                let blobObj = dataURItoBlob(e.target.result),
-                 blob = blobObj.blob,
-                 mimeType = blobObj.mimeType;
+                 blob = blobObj.blob;
                //Getting the base64 encoded string, then converting into byte stream
                let path = `post-media/${postId}/${new Date().getTime()}.${mimeType.split('/')[1]}`,
                 fullPath = `${CONGIF.host}/${CONFIG.bucket}/${path}`;

@@ -18,9 +18,9 @@ angular.module('Voyo').directive('s3ContentLoader', function(S3Service, $timeout
     link: function(scope, element, attrs) {
       scope.$watch('mediaUrl', function (url) {
         if (url) {
-          scope.isVideo = /.quicktime$/.test(scope.mediaUrl);
           S3Service.getMediaRequest(scope.mediaUrl)
             .on('success', function(response) {
+              scope.isVideo = /video/.test(response.data.ContentType);
               scope.loaded = true
               scope.src = `data:${response.data.ContentType};base64,${AWS.util.base64.encode(response.data.Body)}`;
               console.log("Success!");
