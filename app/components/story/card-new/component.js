@@ -1,4 +1,4 @@
-angular.module('Voyo').directive('storyCardNew', function($window, S3Upload) {
+angular.module('Voyo').directive('storyCardNew', function($window, S3Service) {
   return {
     scope: {
       story: '='

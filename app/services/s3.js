@@ -1,6 +1,11 @@
-angular.module('Voyo.services').service('S3Upload', function ($window) {
+angular.module('Voyo.services').service('S3Service', function ($window) {
     // upload later on form submit or something similar
     $window.AWS.config.update({accessKeyId: 'AWS_ACCESS_KEY', secretAccessKey: 'AWS_SECRET'});
+    const CONFIG = {
+      bucket: 'dev.voyo',
+      host: 'https://s3.amazonaws.com'
+    };
+    const amazonS3Client = new AWS.S3();
 
     let dataURItoBlob = function (dataURI) {
       // convert base64/URLEncoded data component to raw binary data held in a string
@@ -32,6 +37,16 @@ angular.module('Voyo.services').service('S3Upload', function ($window) {
 
 
     return {
+
+      // get media so we can check progress
+      getMediaRequest(url) {
+        let path = url.replace(`${CONFIG.host}/${CONFIG.bucket}/`, '');
+        return amazonS3Client.getObject({
+          Bucket: CONFIG.bucket,
+          Key: path
+        });
+      },
+
       // upload on file select or drop
       uploadVideo(url, postId) {
         return new Promise( (resolve, reject) => {
@@ -46,13 +61,11 @@ angular.module('Voyo.services').service('S3Upload', function ($window) {
                  blob = blobObj.blob,
                  mimeType = blobObj.mimeType;
                //Getting the base64 encoded string, then converting into byte stream
-               let bucketName = "dev.voyo",
-                amazonS3Client = new AWS.S3(),
-                path = `post-media/${postId}/${new Date().getTime()}.${mimeType.split('/')[1]}`,
-                fullPath = `https://s3.amazonaws.com/${bucketName}/${path}`;
+               let path = `post-media/${postId}/${new Date().getTime()}.${mimeType.split('/')[1]}`,
+                fullPath = `${CONGIF.host}/${CONFIG.bucket}/${path}`;
 
                amazonS3Client.putObject({
-                 Bucket: bucketName,
+                 Bucket: CONFIG.bucket,
                  Key: path,
                  Body: blob,
                  ACL: 'public-read',
@@ -72,13 +85,11 @@ angular.module('Voyo.services').service('S3Upload', function ($window) {
             blob = blobObj.blob,
             mimeType = blobObj.mimeType;
           //Getting the base64 encoded string, then converting into byte stream
-          let bucketName = "dev.voyo",
-           amazonS3Client = new AWS.S3(),
-           path = `post-media/${postId}/${new Date().getTime()}.png`,
-           fullPath = `https://s3.amazonaws.com/${bucketName}/${path}`;
+          let path = `post-media/${postId}/${new Date().getTime()}.png`,
+            fullPath = `${CONFIG.host}/${CONFIG.bucket}/${path}`;
 
           amazonS3Client.putObject({
-            Bucket: bucketName,
+            Bucket: CONFIG.bucket,
             Key: path,
             Body: blob,
             ACL: 'public-read',

@@ -8,8 +8,7 @@
   <div class="item item-body">
     <div class="asset-placeholder">
       <div class="dummy"></div>
-      <img class="full-image" ng-src="{{story.media}}" ng-if="!isVideo">
-      <video-player video-url="{{story.media}}" ng-if="isVideo"></video-player>
+      <s3-content-loader media-url="story.media" ><sc-content-loader>
       <div class="loader" ng-if="!loaded && !isVideo">
         <i class="icon ion-load-c"></i>
       </div>

@@ -2,7 +2,7 @@ angular.module('Voyo').directive('videoPlayer', function($sce, $window, $ionicSc
   return {
     replace: true,
     scope: {
-      videoUrl: '@'
+      videoUrl: '='
     },
     templateUrl: 'components/video-player/template.html',
     controller: ['$scope', function($scope) {

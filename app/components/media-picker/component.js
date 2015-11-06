@@ -1,4 +1,4 @@
-angular.module('Voyo').directive('mediaPicker', function($compile, $q, $window, MediaCaptureService, S3Upload) {
+angular.module('Voyo').directive('mediaPicker', function($compile, $q, $window, MediaCaptureService, S3Service) {
   return {
     scope: true,
     controller: ['$scope', function($scope) {

@@ -1,4 +1,4 @@
-angular.module('Voyo.controllers').controller('StoryNewFiltersController', function ($scope, $state, $window, S3Upload, Story, story) {
+angular.module('Voyo.controllers').controller('StoryNewFiltersController', function ($scope, $state, $window, S3Service, Story, story) {
 
   $scope.saveMedia = function () {
     let prom;
@@ -28,11 +28,11 @@ angular.module('Voyo.controllers').controller('StoryNewFiltersController', funct
         canvas
       );
     }
-    return S3Upload.uploadCanvas(canvas, story.$id);
+    return S3Service.uploadCanvas(canvas, story.$id);
   }
 
   $scope.saveVideo = function () {
-    return S3Upload.uploadVideo($scope.mediaUrl, story.$id);
+    return S3Service.uploadVideo($scope.mediaUrl, story.$id);
   }
 
 });

@@ -27,27 +27,6 @@ angular.module('Voyo').directive('storyCard', function($ionicPopup, $sce, $timeo
       }
       scope.loaded = false;
       scope.$on('Action:Share', scope.handleShare)
-      scope.story.$loaded().then(() => {
-        scope.isVideo = /.quicktime$/.test(scope.story.media);
-        $timeout(function () {
-          let el, evName;
-          if (scope.isVideo) {
-            el = element.find('video');
-            evName = 'loadeddata';
-            checkLoad(el[0])
-          } else {
-            el = element.find('img');
-            evName = 'load';
-          }
-          if (el[0].complete) {
-            scope.loaded = true
-          } else {
-            el.on(evName, () => {
-              scope.loaded = true
-            })
-          }
-        }, 1);
-      })
     }
   }
 
