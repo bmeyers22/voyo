@@ -12,14 +12,23 @@ angular.module('Voyo').directive('videoPlayer', function($sce, $window, $ionicSc
     }],
     link: function(scope, element, attrs, ctrl) {
       let videoEl = element[0],
-        waypoint = new Waypoint({
+        waypoint = new Waypoint.Inview({
           element: videoEl,
-          handler: function(direction) {
-            // if (!scope.userInteracted) {
-            //   scope.play();
-            // }
+          context: $('.dashboard-content-wrapper.scroll-content')[0],
+          enter: function(direction) {
+            // notify('Enter triggered with direction ' + direction)
           },
-          context: $('.dashboard-content-wrapper.scroll-content')[0]
+          entered: function(direction) {
+            if (!scope.userInteracted) {
+              scope.play();
+            }
+          },
+          exit: function(direction) {
+            scope.pause();
+          },
+          exited: function(direction) {
+            // notify('Exited triggered with direction ' + direction)
+          }
         });
 
       scope.togglePlay = function (videoEl) {

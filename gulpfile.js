@@ -23,6 +23,9 @@ var gulp = require('gulp'),
 var paths = {
   sass: ['app/styles/**/*.scss'],
   js: ['app/**/*.js'],
+  vendor: {
+    js: 'vendor/javascript/*.js'
+  },
   html: ['app/**/*.html'],
   index: ['app/index.html'],
   fonts: ['./bower_components/ionic/fonts/**/*.{ttf,woff,eot,svg}', 'app/fonts/*.{ttf,woff,eot,svg}']
@@ -75,7 +78,7 @@ gulp.task('vendor-javascript', function() {
   var files = bowerFiles({paths: './', debugging: true}),
     vendorJs = fileTypeFilter(files, 'js'),
     q = new queue({objectMode: true});
-    q.queue(gulp.src(vendorJs)
+    q.queue(gulp.src(vendorJs.concat(paths.vendor.js))
       .pipe(sourcemaps.init({loadMaps: true}))
       .pipe(concat('vendor.js'))
       .pipe(sourcemaps.write())
