@@ -49,7 +49,7 @@ angular.module('Voyo').directive('videoPlayer', function($sce, $window, $ionicSc
       element.on('click', function (e) {
         scope.togglePlay(this);
       });
-
+      scope.$on('View:Leaving', scope.pause);
     }
   }
 });

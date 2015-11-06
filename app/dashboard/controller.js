@@ -6,4 +6,8 @@ angular.module('Voyo.controllers').controller('DashboardController', function ($
       return $scope.stories = stories;
     })
   }
+
+  $scope.$on('$ionicView.beforeLeave', function () {
+    $scope.$broadcast('View:Leaving');
+  })
 });
