@@ -10,7 +10,7 @@ describe("DashboardController", function () {
         $provide.service('stories', function() {
           return {};
         });
-        $provide.service('Story', function() {
+        $provide.service('Voyo', function() {
           return {};
         });
       });

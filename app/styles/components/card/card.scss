@@ -1,0 +1,62 @@
+@-webkit-keyframes rotate {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+.card {
+  margin: 0;
+}
+.voyo-card {
+  .card {
+    .item {
+      &.header {
+        display: flex;
+        justify-content: space-between;
+      }
+      &.item-body {
+        .actions {
+          display: flex;
+          > a {
+            &.location {
+              flex-grow: 1;
+              text-align: right;
+            }
+          }
+        }
+        .asset-placeholder {
+          display: inline-block;
+          position: relative;
+          width: 100%;
+          .dummy {
+            margin-top: 100%;
+            background: #ddd;
+          }
+          img, video, .loader {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+          }
+          .loader {
+            background-color: #efefef;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 5em;
+            i {
+              -webkit-animation-name:             rotate;
+              -webkit-animation-duration:         1s;
+              -webkit-animation-iteration-count:  infinite;
+              -webkit-animation-timing-function: linear;
+            }
+          }
+        }
+      }
+    }
+
+  }
+}

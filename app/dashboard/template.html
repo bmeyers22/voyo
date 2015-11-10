@@ -2,8 +2,8 @@
   <ion-content class="dashboard-content-wrapper" delegate-handle="dashboard">
     <ion-refresher pulling-text="Pull to refresh" on-refresh="doRefresh()">
     </ion-refresher>
-    <div ng-repeat="story in stories | orderBy:'-createdAt'">
-      <story-card class="story-card" story="story"></story-card>
+    <div ng-repeat="voyo in voyos | orderBy:'-createdAt'">
+      <voyo-card class="voyo-card" voyo="voyo"></voyo-card>
     </div>
   </ion-content>
 </ion-view>

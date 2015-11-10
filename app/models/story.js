@@ -1,4 +1,4 @@
-angular.module('Voyo').factory("Story", ["$firebaseObject", 'FIREBASE_URL', 'BaseModel', 'Timestampable',
+angular.module('Voyo').factory("Voyo", ["$firebaseObject", 'FIREBASE_URL', 'BaseModel', 'Timestampable',
   function($firebaseObject, FIREBASE_URL, BaseModel, Timestampable) {
     // create a new service based on $firebaseObject
     let defaultProperties = function () {
@@ -9,32 +9,32 @@ angular.module('Voyo').factory("Story", ["$firebaseObject", 'FIREBASE_URL', 'Bas
         createdAt: new Date().getTime()
       }
     };
-    let Story = BaseModel('stories', defaultProperties(), Timestampable);
-    Story.create = function(properties) {
-      var arr = new Firebase(`${FIREBASE_URL}stories/`),
+    let Voyo = BaseModel('voyos', defaultProperties(), Timestampable);
+    Voyo.create = function(properties) {
+      var arr = new Firebase(`${FIREBASE_URL}voyos/`),
         ref = arr.push(angular.extend(defaultProperties(), properties));
 
-      return new Story(ref.key()).$loaded().then( (story) => {
-        return story;
+      return new Voyo(ref.key()).$loaded().then( (voyo) => {
+        return voyo;
       })
     }
-    Story.get = function(options) {
+    Voyo.get = function(options) {
       return new Promise((resolve, reject) => {
-        var ref = new Firebase(`${FIREBASE_URL}stories/`);
+        var ref = new Firebase(`${FIREBASE_URL}voyos/`);
         ref.orderByChild("createdAt").startAt().once("value", function(snapshot) {
-          let stories;
+          let voyos;
           if (snapshot.numChildren() > 0) {
-            stories = Object.keys(snapshot.val()).map(function(key) {
-              return new Story(key);
+            voyos = Object.keys(snapshot.val()).map(function(key) {
+              return new Voyo(key);
             })
           } else {
-            stories = [];
+            voyos = [];
           }
-          resolve(stories);
+          resolve(voyos);
         });
       });
     }
 
-    return Story;
+    return Voyo;
   }
 ]);

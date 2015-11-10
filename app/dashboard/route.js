@@ -12,8 +12,8 @@ angular.module('Voyo')
         currentUser: ['currentUser', function (currentUser) {
           return currentUser;
         }],
-        stories: ['$state', 'Story', function ($state, Story) {
-          return Story.get();
+        voyos: ['$state', 'Voyo', function ($state, Voyo) {
+          return Voyo.get();
         }]
       }
     });

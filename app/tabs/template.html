@@ -11,13 +11,15 @@ navigation history that also transitions its views in and out.
       <ion-nav-view name="tabs-dash"></ion-nav-view>
     </ion-tab>
 
-    <ion-tab icon-off="icon ion-ios-plus" icon-on="icon ion-ios-plus" href="#/app/story/new">
-    </ion-tab>
+    <a class="create-button" ui-sref="app.voyo.new.index">
+      <i class="icon ion-ios-plus balanced"></i>
+    </a>
 
-    <!-- Chats Tab -->
+    <!-- Profile Tab -->
     <ion-tab title="Profile" icon-off="ion-ios-person-outline" icon-on="ion-ios-person" href="#/app/tabs/profile">
       <ion-nav-view name="tabs-profile"></ion-nav-view>
     </ion-tab>
+
 
   </ion-tabs>
 </ion-view>

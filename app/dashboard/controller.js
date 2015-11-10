@@ -1,9 +1,9 @@
-angular.module('Voyo.controllers').controller('DashboardController', function ($scope, Story, stories) {
-  $scope.stories = stories;
+angular.module('Voyo.controllers').controller('DashboardController', function ($scope, Voyo, voyos) {
+  $scope.voyos = voyos;
   $scope.doRefresh = function () {
-    return Story.get().then((stories) => {
+    return Voyo.get().then((voyos) => {
       $scope.$broadcast('scroll.refreshComplete')
-      return $scope.stories = stories;
+      return $scope.voyos = voyos;
     })
   }
 
