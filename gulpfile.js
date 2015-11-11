@@ -55,6 +55,11 @@ gulp.task('sass', function() {
     .pipe(sass({
       errLogToConsole: true
     }))
+    .on('error', function(e) {
+      console.log('>>> ERROR', e);
+      // emit here
+      this.emit('end');
+    })
     .pipe(gulp.dest('www/dist/'))
     .pipe(minifyCss({
       keepSpecialComments: 0
@@ -100,6 +105,11 @@ gulp.task('javascript', function(done) {
     .pipe(replace(/AWS_ACCESS_KEY/g, process.env.VOYO_AWS_ACCESS_KEY))
     .pipe(replace(/AWS_SECRET/g, process.env.VOYO_AWS_SECRET))
     .pipe(babel())
+    .on('error', function(e) {
+      console.log(gutil.colors.red('ERROR'), e);
+      // emit here
+      this.emit('end');
+    })
     .pipe(sourcemaps.init())
     .pipe(concat('voyo.js'))
     .pipe(sourcemaps.write())
