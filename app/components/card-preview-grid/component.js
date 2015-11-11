@@ -9,13 +9,10 @@ angular.module('Voyo').directive('cardPreviewGrid', function($window, lodash) {
     controller: ['$scope', function($scope) {
       angular.extend($scope, {
         sortGroups(cards) {
-          let sorted = lodash.sortBy(cards, function (card) {
-            return card.gridPosition;
-          })
-          return [
-            [sorted[0], sorted[1]],
-            [sorted[2], sorted[3]]
-          ]
+          return lodash.chain(cards)
+            .sortBy(function (card) {
+              return card.gridPosition;
+            }).chunk(2);
         },
         groups: [],
         editCard(card) {

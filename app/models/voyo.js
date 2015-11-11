@@ -10,6 +10,9 @@ angular.module('Voyo').factory("Voyo", ["$firebaseObject", 'FIREBASE_URL', 'Base
       }
     };
     let Voyo = BaseModel('voyos', defaultProperties(), Timestampable);
+
+    Voyo.DEFAULT_CARD_COUNT = 4;
+
     Voyo.create = function(properties) {
       var arr = new Firebase(`${FIREBASE_URL}voyos/`),
         ref = arr.push(angular.extend(defaultProperties(), properties));
@@ -34,6 +37,7 @@ angular.module('Voyo').factory("Voyo", ["$firebaseObject", 'FIREBASE_URL', 'Base
         });
       });
     }
+
 
     return Voyo;
   }
