@@ -11,8 +11,10 @@ angular.module('Voyo')
         }
       },
       resolve: {
-        voyo: ['$state', 'Voyo', function ($state, Voyo) {
-          return Voyo.create();
+        voyo: ['$state', 'Voyo', 'currentUser', function ($state, Voyo, currentUser) {
+          return Voyo.create({
+            user: currentUser.$id
+          });
         }]
       }
     });

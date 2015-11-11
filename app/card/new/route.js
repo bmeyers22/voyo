@@ -2,7 +2,7 @@ angular.module('Voyo')
   .config( function ($stateProvider, $urlRouterProvider) {
     $stateProvider.state('app.voyo.card.new', {
       cache: false,
-      url: '/new',
+      url: '/new/:card_id',
       abstract: true,
       views: {
         'app-card-container': {

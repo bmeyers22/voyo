@@ -1,7 +1,19 @@
-angular.module('Voyo.controllers').controller('VoyoNewIndexController', function ($scope, $state, voyo) {
-  $scope.delete = function () {
-    voyo.$remove().then(function () {
-      $state.go('app.tabs.dash');
-    })
-  }
+angular.module('Voyo.controllers').controller('VoyoNewIndexController', function ($scope, $state, LocationService, voyo, cards) {
+  angular.extend($scope, {
+    cards: cards,
+    voyo: voyo,
+    delete() {
+      cards.forEach((card) => {
+        card.$remove();
+      })
+      voyo.$remove().then(function () {
+        $state.go('app.tabs.dash');
+      })
+    }
+  })
+
+  LocationService.getGeocodeLocation().then((location) => {
+    $scope.voyo.location = location;
+  })
+
 });

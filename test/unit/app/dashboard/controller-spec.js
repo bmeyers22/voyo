@@ -7,7 +7,7 @@ describe("DashboardController", function () {
 
       module("Voyo.controllers");
       module("Voyo", function($provide) {
-        $provide.service('stories', function() {
+        $provide.service('voyos', function() {
           return {};
         });
         $provide.service('Voyo', function() {
