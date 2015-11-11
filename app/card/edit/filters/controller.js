@@ -1,4 +1,4 @@
-angular.module('Voyo.controllers').controller('CardNewFiltersController', function ($scope, $state, $window, S3Service, Card, card) {
+angular.module('Voyo.controllers').controller('CardEditFiltersController', function ($scope, $state, $window, S3Service, Card, card) {
 
   $scope.saveMedia = function () {
     let prom;

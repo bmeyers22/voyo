@@ -1,4 +1,4 @@
-angular.module('Voyo.controllers').controller('VoyoNewIndexController', function ($scope, $state, LocationService, voyo, cards) {
+angular.module('Voyo.controllers').controller('VoyoEditIndexController', function ($scope, $state, LocationService, voyo, cards) {
   angular.extend($scope, {
     cards: cards,
     voyo: voyo,

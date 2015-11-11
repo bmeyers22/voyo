@@ -1,0 +1,23 @@
+@mixin abs0() {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+@mixin square-placeholder() {
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  .dummy {
+    margin-top: 100%;
+    background: #ddd;
+  }
+  .placeholder-content {
+    @include abs0();
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #efefef;
+  }
+}

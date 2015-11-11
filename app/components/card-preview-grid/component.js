@@ -17,7 +17,10 @@ angular.module('Voyo').directive('cardPreviewGrid', function($window, lodash) {
             [sorted[2], sorted[3]]
           ]
         },
-        groups: []
+        groups: [],
+        editCard(card) {
+          $scope.$emit('Card:edit', card);
+        }
       });
     }],
     link: function(scope, element, attrs, controllers) {

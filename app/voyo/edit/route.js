@@ -1,21 +1,17 @@
 angular.module('Voyo')
   .config( function ($stateProvider, $urlRouterProvider) {
-    $stateProvider.state('app.voyo.card', {
-      url: '/card/:cardId',
+    $stateProvider.state('app.voyo.edit', {
+      url: '/edit',
       views: {
         'app-voyo-container': {
-          templateUrl: 'card/template.html',
-          controller: 'CardController',
+          templateUrl: 'voyo/edit/template.html',
+          controller: 'VoyoEditController'
         }
       },
       resolve: {
         voyo: ['$stateParams', 'voyo', function ($stateParams, voyo) {
           return voyo;
-        }],
-        card: [ '$stateParams', 'Card', function ($stateParams, Card) {
-          return Card.find($stateParams.cardId);
         }]
       }
-
     });
   });

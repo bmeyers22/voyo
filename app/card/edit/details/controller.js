@@ -1,4 +1,4 @@
-angular.module('Voyo.controllers').controller('CardNewDetailsController', function ($scope, $state, LocationService, card) {
+angular.module('Voyo.controllers').controller('CardEditDetailsController', function ($scope, $state, LocationService, card) {
   $scope.card = card;
 
   LocationService.getNearestPlace().then((place) => {

@@ -3,9 +3,9 @@
   <div class="col col-50" ng-repeat="card in group">
     <div class="asset-placeholder">
       <div class="dummy"></div>
-      <s3-content-loader media-url="card.media" ><sc-content-loader>
-      <div class="loader" ng-if="!loaded && !isVideo">
-        <i class="icon ion-load-c"></i>
+      <s3-content-loader media-url="card.media" ng-if="card.media" ></s3-content-loader>
+      <div class="placeholder-content" ng-if="!card.media" on-tap="editCard(card)">
+        <i class="icon ion-upload"></i>
       </div>
     </div>
   </div>

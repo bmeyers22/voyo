@@ -27,13 +27,7 @@
           }
         }
         .asset-placeholder {
-          display: inline-block;
-          position: relative;
-          width: 100%;
-          .dummy {
-            margin-top: 100%;
-            background: #ddd;
-          }
+          @include square-placeholder();
           img, video, .loader {
             position: absolute;
             top: 0;

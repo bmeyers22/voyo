@@ -1,4 +1,4 @@
-angular.module('Voyo.controllers').controller('CardNewController', function ($scope, $state, card) {
+angular.module('Voyo.controllers').controller('CardEditController', function ($scope, $state, card) {
 
   $scope.card = card;
   $scope.mediaUrl = '';

@@ -1,11 +1,11 @@
 angular.module('Voyo')
   .config( function ($stateProvider, $urlRouterProvider) {
-    $stateProvider.state('app.voyo.card.new.details', {
-      url: '/details',
+    $stateProvider.state('app.voyo.card.edit', {
+      url: '/edit',
       views: {
-        'app-card-new-container': {
-          controller: 'CardNewDetailsController',
-          templateUrl: 'card/new/details/template.html',
+        'app-voyo-edit-container': {
+          templateUrl: 'card/edit/template.html',
+          controller: 'CardEditController'
         }
       },
       resolve: {

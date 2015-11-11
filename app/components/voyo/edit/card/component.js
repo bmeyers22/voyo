@@ -4,12 +4,11 @@ angular.module('Voyo').directive('voyoCardNew', function($window) {
       voyo: '=',
       cards: '='
     },
-    templateUrl: 'components/voyo/new/card/template.html',
+    templateUrl: 'components/voyo/edit/card/template.html',
     controller: ['$scope', function($scope) {
 
     }],
     link: function(scope, element, attrs, controllers) {
-
     }
   }
 
