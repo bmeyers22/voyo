@@ -1,29 +1,37 @@
-angular.module('Voyo').directive('cardPreviewGrid', function($window, lodash) {
+angular.module('Voyo').directive('cardPreviewGrid', function($window, lodash, Voyo) {
   return {
     scope: {
       voyo: '=',
-      cards: '=',
+      chapters: '=?',
       editable: '='
     },
     templateUrl: 'components/card-preview-grid/template.html',
     controller: ['$scope', function($scope) {
       angular.extend($scope, {
-        sortGroups(cards) {
-          return lodash.chain(cards)
-            .sortBy(function (card) {
-              return card.gridPosition;
-            }).chunk(2);
+        sortGroups(chapters) {
+          return lodash.chain(chapters)
+            .sortBy(function (chapter) {
+              return chapter.gridPosition;
+            })
+            .chunk(2)
+            .value();
         },
         groups: [],
-        editCard(card) {
-          $scope.$emit('Card:edit', card);
+        editChapter(chapter) {
+          if (!$scope.editable) return;
+          $scope.$emit('Chapter:edit', chapter);
         }
       });
     }],
     link: function(scope, element, attrs, controllers) {
-      // scope.$watch('cards', () => {
-        scope.groups = scope.sortGroups(scope.cards);
-      // }, true);
+      scope.$watch('chapters.length', () => {
+        scope.groups = scope.sortGroups(scope.chapters);
+      }, true);
+      if (!scope.chapters) {
+        Voyo.chapters(scope.voyo).then((chapters) => {
+          scope.chapters = chapters;
+        })
+      }
     }
   }
 

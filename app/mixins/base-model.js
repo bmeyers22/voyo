@@ -3,7 +3,11 @@ angular.module('Voyo').factory("BaseModel", ["$firebaseObject", 'FIREBASE_URL',
     // create a new service based on $firebaseObject
     let defaultProperties = {
       save() {
-        $firebaseObject.prototype.$save.call(this);
+        return new Promise((resolve, reject) => {
+          $firebaseObject.prototype.$save.call(this).then(() => {
+            resolve(this);
+          });
+        })
       }
     }
 

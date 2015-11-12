@@ -1,11 +1,10 @@
-angular.module('Voyo').factory("Voyo", ["$firebaseObject", 'FIREBASE_URL', 'BaseModel', 'Timestampable',
-  function($firebaseObject, FIREBASE_URL, BaseModel, Timestampable) {
+angular.module('Voyo').factory("Voyo", ["$firebaseObject", 'FIREBASE_URL', 'BaseModel', 'Timestampable', 'Chapter',
+  function($firebaseObject, FIREBASE_URL, BaseModel, Timestampable, Chapter) {
     // create a new service based on $firebaseObject
     let defaultProperties = function () {
       return {
         title: '',
         caption: '',
-        cards: {},
         createdAt: new Date().getTime()
       }
     };
@@ -20,7 +19,19 @@ angular.module('Voyo').factory("Voyo", ["$firebaseObject", 'FIREBASE_URL', 'Base
       return new Voyo(ref.key()).$loaded().then( (voyo) => {
         return voyo;
       })
-    }
+    };
+    Voyo.chapters = function (voyo) {
+      return new Promise((resolve, reject) => {
+        var ref = new Firebase(`${FIREBASE_URL}voyo-chapters/`);
+        ref.orderByChild('voyo').equalTo(voyo.$id).once('value', (snapshot) => {
+          resolve(
+            Object.keys(snapshot.val()).map(function(key) {
+              return new Chapter(key);
+            })
+          )
+        })
+      });
+    };
     Voyo.get = function(options) {
       return new Promise((resolve, reject) => {
         var ref = new Firebase(`${FIREBASE_URL}voyos/`);
@@ -36,7 +47,7 @@ angular.module('Voyo').factory("Voyo", ["$firebaseObject", 'FIREBASE_URL', 'Base
           resolve(voyos);
         });
       });
-    }
+    };
 
 
     return Voyo;

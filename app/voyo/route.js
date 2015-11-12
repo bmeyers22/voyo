@@ -8,10 +8,8 @@ angular.module('Voyo')
         voyo: ['$stateParams', 'Voyo', function ($stateParams, Voyo) {
           return Voyo.find($stateParams.voyoId);
         }],
-        cards: [ 'Card', 'voyo', function (Card, voyo) {
-          return Promise.all(Object.keys(voyo.cards).map((id) => {
-            return Card.find(id)
-          }))
+        chapters: [ 'Voyo', 'voyo', function (Voyo, voyo) {
+          return Voyo.chapters(voyo);
         }]
       }
     });

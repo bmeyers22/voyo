@@ -1,4 +1,4 @@
-angular.module('Voyo.controllers').controller('TabsController', function ($scope, VoyoModelService, currentUser) {
+angular.module('Voyo.controllers').controller('TabsController', function ($scope, $state, VoyoModelService, currentUser) {
   $scope.createVoyo = function () {
     return VoyoModelService.createVoyo(currentUser)
       .then(function (voyo) {
