@@ -1,0 +1,12 @@
+
+<div class="row" ng-repeat="group in groups">
+  <div class="col col-50" ng-repeat="chapter in group" on-tap="editChapter(chapter)">
+    <div class="asset-placeholder">
+      <div class="dummy"></div>
+      <s3-content-loader media-url="chapter.media" ng-if="chapter.media" ></s3-content-loader>
+      <div class="placeholder-content" ng-if="!chapter.media">
+        <i class="icon ion-upload"></i>
+      </div>
+    </div>
+  </div>
+</div>

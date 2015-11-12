@@ -1,8 +1,18 @@
-angular.module('Voyo.services').service('LocationService', function ($window, $cordovaGeolocation) {
+angular.module('Voyo.services').service('LocationService', function ($window, $cordovaGeolocation, lodash) {
     // upload later on form submit or something similar
 
     let getPlacesService = function () {
         return new google.maps.places.PlacesService($('<div>')[0]);
+      },
+      getGeocoder = function() {
+        return new google.maps.Geocoder
+      },
+      relevantTypes = function () {
+        return [
+          'locality',
+          'administrative_area_level_1',
+          'country'
+        ]
       },
       geometryToJson = function (geometry) {
         return {
@@ -19,6 +29,40 @@ angular.module('Voyo.services').service('LocationService', function ($window, $c
       getCurrentLocation() {
         return $cordovaGeolocation.getCurrentPosition({
           enableHighAccuracy: true
+        });
+      },
+      getGeocodeLocation() {
+        return this.getCurrentLocation().then( (result) => {
+          return new Promise((resolve, reject) => {
+            let geocoder = getGeocoder();
+            // Create the PlaceService and send the request.
+            // Handle the callback with an anonymous function.
+            var location = new google.maps.LatLng(result.coords.latitude, result.coords.longitude),
+              request = {
+                location: location
+              };
+
+            geocoder.geocode(request, function(results, status) {
+              if (status === google.maps.GeocoderStatus.OK) {
+                if (results[0]) {
+                  let names = lodash.chain(results[0].address_components)
+                    .filter((obj) => {
+                      return lodash.intersection(obj.types, relevantTypes()).length
+                    })
+                    .pluck('long_name')
+                    .value();
+                  resolve({
+                    name: names.join(', '),
+                    data: results[0]
+                  })
+                } else {
+                  console.info('No results found');
+                }
+              } else {
+                console.error('Geocoder failed due to: ' + status);
+              }
+            });
+          });
         });
       },
       getNearestPlace() {

@@ -8,7 +8,11 @@ angular.module('Voyo').factory("Timestampable", ["$firebaseObject",
           this.createdAt = new Date().getTime();
         }
         this.updatedAt = new Date().getTime();
-        return $firebaseObject.prototype.$save.call(this);
+        return new Promise((resolve, reject) => {
+          $firebaseObject.prototype.$save.call(this).then(() => {
+            resolve(this);
+          });
+        })
       }
     }
   }

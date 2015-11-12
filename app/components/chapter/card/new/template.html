@@ -1,0 +1,28 @@
+<div class="list card">
+
+  <div class="item">
+    <h2>
+      <label class="item item-input">
+        <input type="text" placeholder="Voyo title..." ng-model="chapter.title">
+      </label>
+    </h2>
+  </div>
+
+  <div class="item item-body">
+    <img class="full-image" ng-src="{{chapter.media}}">
+    <p>
+      <label class="item item-input">
+        <textarea placeholder="Enter caption..." ng-model="chapter.caption"></textarea>
+      </label>
+    </p>
+    <p>
+      <a href="#" class="subdued">
+        <i class="icon ion-ios-location"></i>
+        <ion-spinner icon="ripple" ng-if="!chapter.location.name"></ion-spinner>
+        <span>{{chapter.location.name}}</span>
+      </a>
+    </p>
+
+  </div>
+
+</div>

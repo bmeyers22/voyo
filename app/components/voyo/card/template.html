@@ -1,0 +1,33 @@
+<div class="list card">
+
+  <div class="item header" ion-affix data-affix-within-parent-with-class="card">
+    <h2>{{voyo.title}}</h2>
+    <p class="time-ago"><fuzzy-time date="voyo.createdAt"></fuzzy-time></p>
+  </div>
+
+  <div class="item item-body">
+    <card-preview-grid voyo="voyo" chapters="chapters"></card-preview-grid>
+    <p>{{voyo.caption}}</p>
+    <div class="actions">
+      <a class="subdued">1 <i class="icon ion-star"></i></a>
+      <a class="subdued">5 <i class="icon ion-chatbubble-working"></i></a>
+      <a class="balanced location">
+        <span>{{voyo.location.name}}</span>
+        <i class="icon ion-ios-location"></i>
+      </a>
+    </div>
+  </div>
+
+  <div class="item tabs tabs-secondary tabs-icon-left">
+    <div class="tab-item" href="#">
+      <i class="icon ion-thumbsup"></i>
+      Like
+    </div>
+    <div class="tab-item" href="#">
+      <i class="icon ion-chatbox"></i>
+      Comment
+    </div>
+    <share-button></share-button>
+  </div>
+
+</div>
